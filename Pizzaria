@@ -1,23 +1,36 @@
+def pizzaria():
+  print("*"*52)
+  print("*"*16," Pizzaria Logica !","*"*16)
+  print("*"*52)
+
+
+def menu_principal():
+    print("#"*14,"Escolha a opção desejada!","#"*11)
+    print("#"*10," 1 para fazer um pedido!","#"*16)
+    print("#"*10," 2 para Pegar a conta de uma mesa!","#"*6)
+    print("#"*10," 3 para verificar as mesas abertas","#"*6)
+    print("#"*10," 4 para Valor total vendido !","#"*11)
+    print("#"*10," 5 para sair do sistema!","#"*16)
+    print("#"*52)
+
+
+def menu_secundario()
+    print('Digite 1 para abrir uma nova mesa!')
+    print('Digite 2 para adcionar um pedido a uma mesa já aberta!')
+    print('Digite 3 para voltar para o menu principal!')
+
+
 pedido = dict ()
 ped = []
 pizza = []
+
 while True:
-    print("****************************************************")
-    print("****************Seja Bem Vindo!*********************")
-    print("****************************************************")
-    print("##############Escolha a opção desejada!#############")
-    print("########### 1 para fazer um pedido!#################")
-    print("########### 2 para Pegar a conta de uma mesa!#######")
-    print("########### 3 para verificar as mesas abertas ######")
-    print("########### 4 para Valor total vendido !############")
-    print("########### 5 para sair do sistema!#################")
-    print("####################################################")
+    pizzaria()
+    menu_principal()
     op = int(input())
     if op == 1:
         while True:
-            print('Digite 1 para abrir uma nova mesa!')
-            print('Digite 2 para adcionar um pedido a uma mesa já aberta!')
-            print('Digite 3 para voltar para o menu principal!')
+            menu_secundario()
             op2 = int(input())
             if op2 == 1:
                 pedido['n_mesa'] = int(input("Insira o número da mesa: "))

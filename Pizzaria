@@ -14,16 +14,16 @@ def menu_principal():
     print("#"*52)
 
 
-def menu_secundario()
+def menu_secundario():
     print('Digite 1 para abrir uma nova mesa!')
     print('Digite 2 para adcionar um pedido a uma mesa já aberta!')
     print('Digite 3 para voltar para o menu principal!')
 
 
+
 pedido = dict ()
 ped = []
 pizza = []
-
 while True:
     pizzaria()
     menu_principal()
@@ -33,16 +33,33 @@ while True:
             menu_secundario()
             op2 = int(input())
             if op2 == 1:
-                pedido['n_mesa'] = int(input("Insira o número da mesa: "))
-                pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
-                pedido['valor_u'] = float(input("Insira o valor da pizza: "))
-                pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
-                pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]
-                ped.append(pedido.copy())
-                print('###############################################')
-                print('#######Pedido registrado com sucesso! #########')
-                print('###############################################')
-                print(ped)
+                mesa = int(input("Insira o número da mesa: "))
+                if len(ped) == 0:
+                    pedido['n_mesa'] = mesa
+                    pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
+                    pedido['valor_u'] = float(input("Insira o valor da pizza: "))
+                    pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
+                    pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]
+                    ped.append(pedido.copy())
+                    print('###############################################')
+                    print('#######Pedido registrado com sucesso! #########')
+                    print('###############################################')
+                    print(ped)
+                else:
+                    for m in ped:
+                        if m['n_mesa'] != mesa:
+                            pedido['n_mesa'] = mesa
+                            pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
+                            pedido['valor_u'] = float(input("Insira o valor da pizza: "))
+                            pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
+                            pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]
+                            ped.append(pedido.copy())
+                            print('###############################################')
+                            print('#######Pedido registrado com sucesso! #########')
+                            print('###############################################')
+                            print(ped)
+                        elif m['n_mesa'] == mesa:
+                            print("Esta mesa esta aberta")
             elif op2 == 2:
                 mesa = int(input("Insira o número da mesa: "))
                 for m in ped:
@@ -51,7 +68,7 @@ while True:
                         pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
                         pedido['valor_u'] = float(input("Insira o valor da pizza: "))
                         pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
-                        pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]
+                        pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]+m["valor_t"]
                         ped.append(pedido.copy())
                         print('###############################################')
                         print(f'###Pedido adcionado na mesa {m["n_mesa"]} com sucesso! ###')
@@ -65,14 +82,13 @@ while True:
                 print("ERRO! Opção invalida ! ")
     elif op == 2:
         mesa = int(input("Insira o número da mesa: "))
+        print("N. Pedido| Mesa | Pizza | Quantidade | Valor Unitario")
         for c in ped:
             if c['n_mesa'] == mesa:
-                print("##   Mesa     ##     Pizza ##        Quantidade    ## Valor Unitario")
-                print(f' {c["n_mesa"]}   {c["pizza_t"]}    {c["quant"]}    {c["valor_u"]}')
+                print(f'  {c} {c["n_mesa"]}   {c["pizza_t"]}    {c["quant"]}    {c["valor_u"]}')
         for t in ped:
-            conta = 0
             if t['n_mesa'] == mesa:
-                conta = t["valor_t"]
+                print(f'Valor Total========={c["valor_t"]}')
     elif op == 3:
         print(f"Existem {len(ped)} mesas em aberto no momento e elas são: ")
         for m in ped:

@@ -1,0 +1,113 @@
+def cabecalho():
+    print("*"*52)
+    print("*"*16," Pizzaria Logica !","*"*16)
+    print("*"*52)
+
+
+def menu_principal():
+    print("#"*14,"Escolha a opção desejada!","#"*11)
+    print("#"*10," 1 para fazer um pedido!","#"*16)
+    print("#"*10," 2 para lista pedidos de uma mesa!","#"*6)
+    print("#"*10," 3 para verificar as mesas abertas","#"*6)
+    print("#"*10," 4 para Valor total vendido !","#"*11)
+    print("#"*10," 5 para sair do sistema!","#"*16)
+    print("#"*52)
+
+
+def menu_secundario():
+    print('Digite 1 para abrir uma nova mesa!')
+    print('Digite 2 para adcionar um pedido a uma mesa já aberta!')
+    print('Digite 3 para voltar para o menu principal!')
+
+
+def pedido_mesa(n_mesa):
+    pedido['n_mesa'] = mesa
+    pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
+    pedido['valor_u'] = float(input("Insira o valor da pizza: "))
+    pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
+    pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]
+    ped.append(pedido.copy())
+    print('###############################################')
+    print('#######Pedido registrado com sucesso! #########')
+    print('###############################################')
+
+
+def lista_pedido(a):
+    print("|  Mesa |    Pizzas     | Quant | Valor Unitario")
+    total = 0
+    for c in ped:
+        if c['n_mesa'] == a:
+            print("="*3,(f'{c["n_mesa"]}'),"="*5,(f'{c["pizza_t"]}'),"="*5,(f'{c["quant"]}'),"="*6,(f'{c["valor_u"]}'))
+            total += c["valor_t"]
+    print(f'Valor Total========================={total}')
+
+
+def fazer_pagamento(p):
+    pag = int(input("Deseja fechar a mesa S/N: ")).upper()
+    if pag = "S":
+        print("Escolha uma forma de pagamento: ")
+        print("1 - DINHEIRO")
+        print("2 - CARTAO DE CREDITO")
+        print("3 - CARTAO DE  DEBITO")
+        print("4 - PIC PAY")
+        print("5 - MOEDA VIRTUAL")            
+        f_pag = int(input())
+        if f_pag == 1:
+            for p 
+
+
+
+pedido = dict ()
+ped = []
+pizza = []
+while True:
+    cabecalho()
+    menu_principal()
+    op = int(input())
+    if op == 1:
+        while True:
+            menu_secundario()
+            op2 = int(input())
+            if op2 == 1:
+                mesa = int(input("Insira o número da mesa: "))
+                if len(ped) == 0:
+                    pedido_mesa(mesa)
+                else:
+                    for m in ped:
+                        if m['n_mesa'] != mesa:
+                            pedido_mesa(mesa)
+                        elif m['n_mesa'] == mesa:
+                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                            print("& ERRO! Esta mesa esta aberta! &")
+                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+            elif op2 == 2:
+                mesa = int(input("Insira o número da mesa: "))
+                for m in ped:
+                    if m['n_mesa'] == mesa:
+                        pedido['n_mesa'] = mesa
+                        pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
+                        pedido['valor_u'] = float(input("Insira o valor da pizza: "))
+                        pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
+                        pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]+m["valor_t"]
+                        ped.append(pedido.copy())
+                        print('###############################################')
+                        print(f'###Pedido adcionado na mesa {m["n_mesa"]} com sucesso! ###')
+                        print('###############################################')
+                        print(ped)
+                        mesa = 0
+                print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa!")
+            elif op2==3:
+                break
+            else:
+                print("ERRO! Opção invalida ! ")
+    elif op == 2:
+        mesa = int(input("Insira o número da mesa: "))
+        print(lista_pedido(mesa))
+    elif op == 3:
+        print(f"Existem {len(ped)} mesas em aberto no momento e elas são: ")
+        for m in ped:
+            print(m['n_mesa'])
+    elif op == 4:
+        print("teste4")
+    elif op == 5:
+        break

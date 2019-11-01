@@ -171,7 +171,8 @@ def cardapio(m):  #função para criar o cardapio
     print('#######Pedido registrado com sucesso! #########')
     print('###############################################')
     pedido.clear()
-    print(ped)   
+    print(ped)
+
 
 def lista_pedido(a):  #função para lista os pedidos de uma mesa
     print("|  Mesa |    Pizzas     | Quant | Valor Unitario |  Bebidas |  Quant  | Valor Unitario |")
@@ -190,6 +191,7 @@ def lista_pedido(a):  #função para lista os pedidos de uma mesa
             print("4 - Pay Pal")
             print("5 - BitCoin")
             print("6 - Fiado")
+            print("      ")
             pagamento = int(input("Escolha a forma de pagamento Desejada: "))
             if (pagamento>=1) and (pagamento<=6):
                 if pagamento == 1:
@@ -204,12 +206,23 @@ def lista_pedido(a):  #função para lista os pedidos de uma mesa
                     pedido['f_pagamento'] = str('BitCoin')
                 elif pagamento == 6:
                     pedido['f_pagamento'] = str('Fiado')
+                for f in ped:
+                    if f['n_mesa'] == a:
+                        pedido['n_mesa'] = int(c["n_mesa"])
+                        pedido['pizza_t'] = str(c["pizza_t"])
+                        pedido['quant'] = int(c["quant"])
+                        pedido['valor_u'] = float(c["valor_u"])
+                        pedido['bebidas'] = str(c["bebidas"])
+                        pedido['quant_b'] = int(c["quant_b"])
+                        pedido['v_bebida'] = float(c["v_bebida"])
+                        pedido['valor_t'] = float(total)
+                        pizza.append(pedido.copy())
+                        ped.pop
                 break
             else:
                 print("ERROR! Forma de pagamento selecionada invalida favor inserir uma forma de pagamento valida ")
         elif pagamento == "N":
-            print("teste")  
-
+            print("teste")
 
 
 #programa princiapal

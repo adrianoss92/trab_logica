@@ -1,21 +1,23 @@
-pedido = dict ()
+
+
+pedido = dict()
 ped = []
 pizza = []
 
 def cabecalho():
-    print("*"*52)
-    print("*"*16," Pizzaria Logica !","*"*16)
-    print("*"*52)
+    print("*" * 52)
+    print("*" * 16, " Pizzaria Logica !", "*" * 16)
+    print("*" * 52)
 
 
 def menu_principal():
-    print("#"*14,"Escolha a opção desejada!","#"*11)
-    print("#"*10," 1 para fazer um pedido!","#"*16)
-    print("#"*10," 2 para lista pedidos de uma mesa!","#"*6)
-    print("#"*10," 3 para verificar as mesas abertas","#"*6)
-    print("#"*10," 4 para Valor total vendido !","#"*11)
-    print("#"*10," 5 para sair do sistema!","#"*16)
-    print("#"*52)
+    print("#" * 14, "Escolha a opção desejada!", "#" * 11)
+    print("#" * 10, " 1 para fazer um pedido!", "#" * 16)
+    print("#" * 10, " 2 para lista pedidos de uma mesa!", "#" * 6)
+    print("#" * 10, " 3 para verificar as mesas abertas", "#" * 6)
+    print("#" * 10, " 4 para Valor total vendido !", "#" * 11)
+    print("#" * 10, " 5 para sair do sistema!", "#" * 16)
+    print("#" * 52)
 
 
 def menu_secundario():
@@ -24,7 +26,7 @@ def menu_secundario():
     print('Digite 3 para voltar para o menu principal!')
 
 
-def pedido_mesa(n_mesa):   
+def pedido_mesa(n_mesa):
     pedido['n_mesa'] = mesa
     pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
     pedido['valor_u'] = float(input("Insira o valor da pizza: "))
@@ -36,12 +38,12 @@ def pedido_mesa(n_mesa):
     print('###############################################')
 
 
-def cardapio(m):  #função para criar o cardapio
+def cardapio(m):  # função para criar o cardapio
     pedido['n_mesa'] = m
     while True:
         print("**************************************************")
         print("*****SABORES*******-*******INGREDIENTES***********")
-        print("**************************************************") 
+        print("**************************************************")
         print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
         print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
         print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
@@ -55,7 +57,7 @@ def cardapio(m):  #função para criar o cardapio
         print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
         print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
         print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
-        sabor=int(input())
+        sabor = int(input())
         if (sabor >= 1) and (sabor <= 13):
             if sabor == 1:
                 pedido['pizza_t'] = str('CALABRESA')
@@ -84,17 +86,17 @@ def cardapio(m):  #função para criar o cardapio
             elif sabor == 13:
                 pedido['pizza_t'] = str('CARIOCA')
             break
-        #elif sabor <= 0:
-            #print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
+        # elif sabor <= 0:
+        # print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
         else:
             print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
     while True:
-        print("¨¨¨¨¨¨¨¨ Escolha o tamanho da Pizza ¨¨¨¨¨¨¨¨¨¨")  
+        print("¨¨¨¨¨¨¨¨ Escolha o tamanho da Pizza ¨¨¨¨¨¨¨¨¨¨")
         print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
         print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
         print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
         tamanho = float(input())
-        if (tamanho>=1) and (tamanho<=4):
+        if (tamanho >= 1) and (tamanho <= 4):
             if tamanho == 1:
                 pedido['valor_u'] = float(29.00)
             elif tamanho == 2:
@@ -103,29 +105,29 @@ def cardapio(m):  #função para criar o cardapio
                 pedido['valor_u'] = float(36.00)
             elif tamanho == 4:
                 pedido['valor_u'] = float(41.00)
-            break     
+            break
         else:
             print("ERROR! Opção selecionada Invalida!")
     while True:
         pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
         if pedido['quant'] > 0:
-            v_pizza = float(pedido['valor_u']*pedido['quant'])
+            v_pizza = float(pedido['valor_u'] * pedido['quant'])
             break
         else:
-          print("ERROR! Quantidade inserida invalida! ")
+            print("ERROR! Quantidade inserida invalida! ")
     while True:
         bebida = str(input("Deseja pedir uma bebida S/N?")).upper()
         if bebida == "S":
             print("***************************************************************")
             print("***************************BEBIDAS*****************************")
-            print("***************************************************************") 
+            print("***************************************************************")
             print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
             print(" 2 - Citrus lata =======================================R$ 4,00")
             print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
             print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
             print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
             drink = int(input("Insira a opção desejada: "))
-            if (drink>=1) and (drink<=5):
+            if (drink >= 1) and (drink <= 5):
                 if drink == 1:
                     pedido['bebidas'] = str('ÁGUA')
                     pedido['v_bebida'] = float(3.50)
@@ -147,7 +149,7 @@ def cardapio(m):  #função para criar o cardapio
         elif bebida == "N":
             pedido['bebidas'] = str('--- ')
             pedido['v_bebida'] = int(0)
-            print(pedido['bebidas'],pedido['v_bebida'])
+            print(pedido['bebidas'], pedido['v_bebida'])
             break
         else:
             print("ERROR! Insira apenas S/N.")
@@ -155,7 +157,7 @@ def cardapio(m):  #função para criar o cardapio
         if bebida == "S":
             pedido['quant_b'] = float(input("Insira a quantidade de bebidas: "))
             if pedido['quant_b'] > 0:
-                v_bebida = float(pedido['v_bebida']*pedido['quant_b'])
+                v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
                 pedido['valor_t'] = float(v_bebida + v_pizza)
                 break
             else:
@@ -174,12 +176,14 @@ def cardapio(m):  #função para criar o cardapio
     print(ped)
 
 
-def lista_pedido(a):  #função para lista os pedidos de uma mesa
+def lista_pedido(a):  # função para lista os pedidos de uma mesa
     print("|  Mesa |    Pizzas     | Quant | Valor Unitario |  Bebidas |  Quant  | Valor Unitario |")
     total = 0
     for c in ped:
         if c['n_mesa'] == a:
-            print("="*3,(f'{c["n_mesa"]}'),"="*5,(f'{c["pizza_t"]}'),"="*5,(f'{c["quant"]}'),"="*6,(f'{c["valor_u"]}'),"="*5,(f'{c["bebidas"]}'),"="*5,(f'{c["quant_b"]}'),"="*5,(f'{c["v_bebida"]}'))
+            print("=" * 3, (f'{c["n_mesa"]}'), "=" * 5, (f'{c["pizza_t"]}'), "=" * 5, (f'{c["quant"]}'), "=" * 6,
+                  (f'{c["valor_u"]}'), "=" * 5, (f'{c["bebidas"]}'), "=" * 5, (f'{c["quant_b"]}'), "=" * 5,
+                  (f'{c["v_bebida"]}'))
             total += c["valor_t"]
     print(f'Valor Total================================================================={total}')
     while True:
@@ -191,9 +195,8 @@ def lista_pedido(a):  #função para lista os pedidos de uma mesa
             print("4 - Pay Pal")
             print("5 - BitCoin")
             print("6 - Fiado")
-            print("      ")
             pagamento = int(input("Escolha a forma de pagamento Desejada: "))
-            if (pagamento>=1) and (pagamento<=6):
+            if (pagamento >= 1) and (pagamento <= 6):
                 if pagamento == 1:
                     pedido['f_pagamento'] = str('Dinheiro')
                 elif pagamento == 2:
@@ -206,26 +209,30 @@ def lista_pedido(a):  #função para lista os pedidos de uma mesa
                     pedido['f_pagamento'] = str('BitCoin')
                 elif pagamento == 6:
                     pedido['f_pagamento'] = str('Fiado')
-                for f in ped:
-                    if f['n_mesa'] == a:
-                        pedido['n_mesa'] = int(c["n_mesa"])
-                        pedido['pizza_t'] = str(c["pizza_t"])
-                        pedido['quant'] = int(c["quant"])
-                        pedido['valor_u'] = float(c["valor_u"])
-                        pedido['bebidas'] = str(c["bebidas"])
-                        pedido['quant_b'] = int(c["quant_b"])
-                        pedido['v_bebida'] = float(c["v_bebida"])
-                        pedido['valor_t'] = float(total)
-                        pizza.append(pedido.copy())
-                        ped.pop
+                pedido['n_mesa'] = int(c["n_mesa"])
+                pedido['pizza_t'] = str(c["pizza_t"])
+                pedido['valor_u'] = float(c["valor_u"])
+                pedido['quant'] = float(c["quant"])
+                pedido['bebidas'] = str(c["bebidas"])
+                pedido['v_bebida'] = float(c["v_bebida"])
+                pedido['quant_b'] = float(c["quant_b"])
+                pedido['valor_t'] = float(total)
+                pizza.append(pedido.copy())
+                print(pizza)
+                pedido.clear()
+                for r in ped:
+                    if a in ped(n_mesa):
+                        ped.pop(r)
                 break
+                print(ped)
             else:
                 print("ERROR! Forma de pagamento selecionada invalida favor inserir uma forma de pagamento valida ")
         elif pagamento == "N":
             print("teste")
 
+        # programa princiapal
 
-#programa princiapal
+
 while True:
     cabecalho()
     menu_principal()
@@ -253,7 +260,7 @@ while True:
                         cardapio(m['n_mesa'])
                         mesa = 0
                 print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa!")
-            elif op2==3:
+            elif op2 == 3:
                 break
             else:
                 print("ERRO! Opção invalida ! ")

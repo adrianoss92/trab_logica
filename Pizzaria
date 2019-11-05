@@ -25,18 +25,6 @@ def menu_secundario():
     print('Digite 3 para voltar para o menu principal!')
 
 
-def pedido_mesa(n_mesa):
-    pedido['n_mesa'] = mesa
-    pedido['pizza_t'] = str(input("Insira o sabor da pizza: ")).upper()
-    pedido['valor_u'] = float(input("Insira o valor da pizza: "))
-    pedido['quant'] = float(input("Insira a quantidade de pizzas: "))
-    pedido['valor_t'] = pedido["valor_u"] * pedido["quant"]
-    ped.append(pedido.copy())
-    print('###############################################')
-    print('#######Pedido registrado com sucesso! #########')
-    print('###############################################')
-
-
 def cardapio(m):  # função para criar o cardapio
     pedido['n_mesa'] = m
     while True:
@@ -85,8 +73,6 @@ def cardapio(m):  # função para criar o cardapio
             elif sabor == 13:
                 pedido['pizza_t'] = str('CARIOCA')
             break
-        # elif sabor <= 0:
-        # print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
         else:
             print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
     while True:
@@ -218,16 +204,19 @@ def lista_pedido(a):  # função para lista os pedidos de uma mesa
                     pedido['f_pagamento'] = str('BitCoin')
                 elif pagamento == 6:
                     pedido['f_pagamento'] = str('Fiado')
-                pedido['n_mesa'] = int(c["n_mesa"])
-                pedido['pizza_t'] = str(c["pizza_t"])
-                pedido['valor_u'] = float(c["valor_u"])
-                pedido['quant'] = float(c["quant"])
-                pedido['bebidas'] = str(c["bebidas"])
-                pedido['v_bebida'] = float(c["v_bebida"])
-                pedido['quant_b'] = float(c["quant_b"])
-                pedido['valor_t'] = float(total)
-                pizza.append(pedido.copy())
-                print(pizza)
+                for c in ped:
+                    if c['n_mesa'] == a:
+                        pedido['f_pagamento']
+                        pedido['n_mesa'] = a
+                        pedido['pizza_t'] = str(c["pizza_t"])
+                        pedido['valor_u'] = float(c["valor_u"])
+                        pedido['quant'] = float(c["quant"])
+                        pedido['bebidas'] = str(c["bebidas"])
+                        pedido['v_bebida'] = float(c["v_bebida"])
+                        pedido['quant_b'] = float(c["quant_b"])
+                        pedido['valor_t'] = float(c["valor_t"])
+                        pizza.insert(pedido.copy())
+                        print(pizza)
                 pedido.clear()
                 for c in ped:
                     if c['n_mesa'] == a:
@@ -255,25 +244,39 @@ while True:
             op2 = int(input())
             if op2 == 1:
                 mesa = int(input("Insira o número da mesa: "))
+                status_mesa = int
                 if len(ped) == 0:
                     cardapio(mesa)
                 elif len(ped) > 0:  #Estrutura para validar se a mesa esta aberta ou não
                     for m in ped:
                         if m['n_mesa'] != mesa:
                             cardapio(mesa)
-                        if n['n_mesa'] == mesa:
-                            print("!" * 36)
-                            print("!! ERRO! Esta mesa esta aberta... !!")
-                            print("!" * 36)
+                            status_mesa = 1
+                            break
+                    if status_mesa == 1:
+                        print("mesa ocupada")
+                    elif status_mesa != 1:
+                        print('^' * 70)
+                        print(f"A mesa {mesa} Já esta aberta favor inserir uma nova número!")
+                        print('^' * 70)
+                mesa = 0
+                status_mesa = 0
             elif op2 == 2:
                 mesa = int(input("Insira o número da mesa: "))
-                for m in ped:
-                    if m['n_mesa'] == mesa:
-                        cardapio(m['n_mesa'])
-                        mesa = 0
-                print('^' * 70)
-                print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa!")
-                print('^' * 70)
+                status_mesa = 0
+                for n in ped:
+                    if n['n_mesa'] == mesa:
+                        cardapio(mesa)
+                        status_mesa = 1
+                        break
+                if status_mesa == 1:
+                    print("mesa ocupada")
+                elif status_mesa != 1:
+                    print('^' * 70)
+                    print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa!")
+                    print('^' * 70)   
+                mesa = 0
+                status_mesa = 0
             elif op2 == 3:
                 break
             else:

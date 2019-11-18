@@ -1,9 +1,9 @@
 import time
 import os
 pedido = dict()
-ped = list()
-excluir = list()
-m_pagas = list()
+ped = []
+m_pagas = []
+ped2 = []
 
 
 def leia_int(valor):     #função para tratamento de erros para inserção de valores inteiros
@@ -22,7 +22,7 @@ def leia_str(valor):        #função para tratamento de erros para inserção d
         try:
             n = str(input(valor))
         except (ValueError, TypeError,):
-            print('ERROR! POR FAVOR INSIRA UM NÚMERO INTEIRO VALIDO')
+            print('ERROR! POR FAVOR INSIRA APENAS S/N ')
             continue
         else:
             return n
@@ -36,10 +36,10 @@ def cabecalho():
 
 def menu_principal():
     cabecalho()
-    print("#" * 10, " 1 para fazer um pedido!", "#" * 16)
-    print("#" * 10, " 2 para lista pedidos de uma mesa!", "#" * 6)
-    print("#" * 10, " 3 para verificar as mesas abertas", "#" * 6)
-    print("#" * 10, " 4 para Valor total vendido !", "#" * 11)
+    print("#" * 10, " 1 para Fazer um Pedido!", "#" * 16)
+    print("#" * 10, " 2 para lista Status/Valor de um pedido!#")
+    print("#" * 10, " 3 para Mudar Status de um pedido", "#" * 7)
+    print("#" * 10, " 4 para Relatorios!", "#" * 21)
     print("#" * 10, " 5 para sair do sistema!", "#" * 16)
 
 
@@ -52,6 +52,12 @@ def menu_secundario():
 
 def cardapio(m):  # função para criar o cardapio
     pedido['n_mesa'] = m
+    pedido['s_pedido'] = str('Pedido Aberto     ')
+    os.system("cls")
+    cabecalho()
+    print("1 - Para uma Pizza e Bebida  ")
+    print("2 - Para pedir Apenas Bebida ")
+    print("3 - Para Pedir Apenas Pizza  ")
     while True:
         cabecalho()
         print("*"*52)
@@ -183,15 +189,17 @@ def cardapio(m):  # função para criar o cardapio
                 pedido['valor_t'] = float(v_bebida + v_pizza)
                 ped.append(pedido.copy())
                 os.system("cls")
-                print('#' * 46)
+                cabecalho()
+                print('#' * 52)
                 print('#' * 12, 'Registrando pedido...', '#' * 11)
-                print('#' * 46)
+                print('#' * 52)
                 pedido.clear()
                 time.sleep(2)
                 os.system("cls")
-                print('#' * 46)
+                cabecalho()
+                print('#' * 52)
                 print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
-                print('#' * 46)
+                print('#' * 52)
                 time.sleep(2)
                 break
             else:
@@ -205,21 +213,22 @@ def cardapio(m):  # função para criar o cardapio
             pedido['valor_t'] = float(v_pizza)
             ped.append(pedido.copy())
             os.system("cls")
-            print('#' * 46)
+            print('#' * 52)
             print('#' * 12, 'Registrando pedido...', '#' * 11)
-            print('#' * 46)
+            print('#' * 52)
             pedido.clear()
             time.sleep(2)
             os.system("cls")
-            print('#' * 46)
+            print('#' * 52)
             print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
-            print('#' * 46)
+            print('#' * 52)
             time.sleep(2)
             break
 
 
 def cardapio2(m):  # função para criar o cardapio
     pedido['n_mesa'] = m
+    pedido['s_pedido'] = str('Pedido Aberto     ')
     while True:
         cabecalho()
         print("*"*52)
@@ -277,7 +286,7 @@ def cardapio2(m):  # função para criar o cardapio
         print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
         print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
         print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-        tamanho = float(input("ESCOLHA A OPÇÃO DESEJDA"))
+        tamanho = float(input("ESCOLHA A OPÇÃO DESEJADA: "))
         if (tamanho >= 1) and (tamanho <= 4):
             if tamanho == 1:
                 pedido['valor_u'] = float(29.00)
@@ -348,15 +357,18 @@ def cardapio2(m):  # função para criar o cardapio
                 v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
                 pedido['valor_t'] = float(v_bebida + v_pizza)
                 ped.append(pedido.copy())
-                print('#' * 46)
+                os.system("cls")
+                cabecalho()
+                print('#' * 52)
                 print('#' * 12, 'Registrando pedido...', '#' * 11)
-                print('#' * 46)
+                print('#' * 52)
                 pedido.clear()
                 time.sleep(2)
                 os.system("cls")
-                print('#' * 46)
-                print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
-                print('#' * 46)
+                cabecalho()
+                print('#' * 52)
+                print('#' * 6, 'Pedido Resgistrado com Sucesso! :)', '#' * 6)
+                print('#' * 52)
                 time.sleep(2)
                 os.system("cls")
                 break
@@ -364,21 +376,22 @@ def cardapio2(m):  # função para criar o cardapio
                 print("ERROR! A QUANTIDADE INSERIDA É MENOR QUE ZERO! ")
         elif bebida == "N":
             os.system("cls")
-            cabecalho()
             pedido['bebidas'] = str('--------------')
             pedido['v_bebida'] = float(0)
             pedido['quant_b'] = float(0)
             pedido['valor_t'] = float(v_pizza)
             ped.append(pedido.copy())
-            print('#' * 46)
+            cabecalho()
+            print('#' * 52)
             print('#' * 12, 'Registrando pedido...', '#' * 11)
-            print('#' * 46)
+            print('#' * 52)
             pedido.clear()
             time.sleep(2)
             os.system("cls")
-            print('#' * 46)
+            cabecalho()
+            print('#' * 52)
             print('#' * 6, 'Pedido Resgistrado com Sucesso! :)', '#' * 6)
-            print('#' * 46)
+            print('#' * 52)
             time.sleep(2)
             os.system("cls")
             break
@@ -386,70 +399,39 @@ def cardapio2(m):  # função para criar o cardapio
 
 def lista_pedido(a):  # função para lista os pedidos de uma mesa
     total = 0
-    print(" " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
+    print("Status Mesa"," "*7," " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
     for c in ped:
         if c['n_mesa'] == a:
-            print("="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 12,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 10,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
             total += c["valor_t"]
     print('Valor Total','='*115,(f'{total}'))
-    f_mesa = leia_str('Deseja fechar a Mesa S/N').upper()
+    f_mesa = leia_str('Mudar Status da mesa ? S/N: ').upper()
     if f_mesa == "S":
-        pagamento(a)
+        status_pedido(a)
     elif f_mesa == "N":
         print('Obrigado')
 
 
-def pagamento(a):
+def status_pedido(b):
     cabecalho()
-    print("1 - Dinheiro")
-    print("2 - Debito")
-    print("3 - Credito")
-    print("4 - Pay Pal")
-    print("5 - BitCoin")
-    print("6 - Fiado")
+    print("1 - Pedido Aberto")
+    print("2 - Pronto  P/ Entrega")
+    print("3 - Pedido Entregue")
     pagamento = leia_int('Escolha a forma de pagamento Desejada: ')
-    if (pagamento >= 1) and (pagamento <= 6):
+    if (pagamento >= 1) and (pagamento <= 3):
         if pagamento == 1:
-            pedido['f_pagamento'] = str('Dinheiro')
+            pedido['s_pedido'] = str('Pedido Aberto     ')
         elif pagamento == 2:
-            pedido['f_pagamento'] = str('Debito')
+            pedido['s_pedido'] = str('Pronto  P/ Entrega')
         elif pagamento == 3:
-            pedido['f_pagamento'] = str('Credito')
-        elif pagamento == 4:
-            pedido['f_pagamento'] = str('Pay Pal')
-        elif pagamento == 5:
-            pedido['f_pagamento'] = str('BitCoin')
-        else:
-            pedido['f_pagamento'] = str('Fiado')
+            pedido['s_pedido'] = str('Pedido Entregue   ')
         for d in ped:
-            if d["n_mesa"] == a:
-                pedido['n_mesa'] = a
-                pedido['pizza_t'] = str(d["pizza_t"])
-                pedido['valor_u'] = float(d["valor_u"])
-                pedido['quant'] = float(d["quant"])
-                pedido['bebidas'] = str(d["bebidas"])
-                pedido['v_bebida'] = float(d["v_bebida"])
-                pedido['quant_b'] = float(d["quant_b"])
-                pedido['valor_t'] = float(d["valor_t"])
-                m_pagas.append(pedido.copy())
-                pedido.clear()
-            else:
-                pedido['n_mesa'] = a
-                pedido['pizza_t'] = str(d["pizza_t"])
-                pedido['valor_u'] = float(d["valor_u"])
-                pedido['quant'] = float(d["quant"])
-                pedido['bebidas'] = str(d["bebidas"])
-                pedido['v_bebida'] = float(d["v_bebida"])
-                pedido['quant_b'] = float(d["quant_b"])
-                pedido['valor_t'] = float(d["valor_t"])
-                excluir.append(pedido.copy)
-                pedido.clear()
-        ped = excluir
-        print(m_pagas)
-        print("#"*50)
+            if (d["n_mesa"] == b):
+                d['s_pedido'] = pedido['s_pedido']
+        print("$" * 100)
         print(ped)
     else:
-        print("ERROR! Forma de pagamento selecionada invalida favor inserir uma forma de pagamento valida ")
+        print("ERROR! Insira apenas uma das opções listadas acima. ")
 
 
 def Lista_mesas_aberta_fechadas(a):  # função para lista os pedidos de uma mesa

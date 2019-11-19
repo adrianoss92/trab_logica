@@ -4,7 +4,7 @@ pedido = dict()
 ped = []
 m_pagas = []
 ped2 = []
-os = int(0)
+num_os = int(0)
 
 
 def leia_int(valor):     #função para tratamento de erros para inserção de valores inteiros
@@ -51,16 +51,17 @@ def menu_secundario():
     print('Digite 3 para voltar para o menu principal!')
 
 
-def cardapio(m):  # função para criar o cardapio
+def cardapio(m, n):  # função para criar o cardapio
     pedido['n_mesa'] = m
     pedido['s_pedido'] = str('Pedido Aberto     ')
     pedido['f_pagamento'] = str('Pendente')
+    pedido['num_os'] = int(n)
     os.system("cls")
     cabecalho()
     print("1 - Para uma Pizza e Bebida  ")
     print("2 - Para pedir Apenas Bebida ")
     print("3 - Para Pedir Apenas Pizza  ")
-    op = leiaint("Selecione a opção Desejada")
+    op = leia_int("Selecione a opção Desejada: ")
     if op == 1:
         while True:
             cabecalho()
@@ -231,7 +232,7 @@ def cardapio(m):  # função para criar o cardapio
     elif op == 2:
         while True:
             pedido['pizza_t'] = str('------------')
-            edido['valor_u'] = float(0)
+            pedido['valor_u'] = float(0)
             pedido['quant'] = float(0)
             os.system("cls")
             cabecalho()
@@ -260,7 +261,6 @@ def cardapio(m):  # função para criar o cardapio
                 elif drink == 5:
                     pedido['bebidas'] = str('Cerv.long neck')
                     pedido['v_bebida'] = float(6.00)
-                break
             else:
                 print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
             os.system("cls")
@@ -283,6 +283,7 @@ def cardapio(m):  # função para criar o cardapio
                 print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
                 print('#' * 52)
                 time.sleep(2)
+                break
     elif op == 3:
         while True:
             cabecalho()
@@ -360,7 +361,6 @@ def cardapio(m):  # função para criar o cardapio
             pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
             if pedido['quant'] > 0:
                 v_pizza = float(pedido['valor_u'] * pedido['quant'])
-                break
             else:
                 print("ERROR! Quantidade inserida invalida Favor inserir um valor maior que ZERO! ")
             os.system("cls")
@@ -381,19 +381,22 @@ def cardapio(m):  # função para criar o cardapio
             print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
             print('#' * 52)
             time.sleep(2)
+            break
     else:
       print("ERROR! Favor seleciona uma das opções acima")
 
 
-def cardapio2(m):  # função para criar o cardapio
+def cardapio2(m, n):  # função para criar o cardapio
     pedido['n_mesa'] = m
     pedido['s_pedido'] = str('Pedido Aberto     ')
+    pedido['f_pagamento'] = str('Pendente')
+    pedido['num_os'] = int(n)
     os.system("cls")
     cabecalho()
     print("1 - Para uma Pizza e Bebida  ")
     print("2 - Para pedir Apenas Bebida ")
     print("3 - Para Pedir Apenas Pizza  ")
-    op = leiaint("Selecione a opção Desejada")
+    op = leia_int("Selecione a opção Desejada: ")
     if op == 1:
         while True:
             cabecalho()
@@ -564,7 +567,7 @@ def cardapio2(m):  # função para criar o cardapio
     elif op == 2:
         while True:
             pedido['pizza_t'] = str('------------')
-            edido['valor_u'] = float(0)
+            pedido['valor_u'] = float(0)
             pedido['quant'] = float(0)
             os.system("cls")
             cabecalho()
@@ -593,7 +596,6 @@ def cardapio2(m):  # função para criar o cardapio
                 elif drink == 5:
                     pedido['bebidas'] = str('Cerv.long neck')
                     pedido['v_bebida'] = float(6.00)
-                break
             else:
                 print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
             os.system("cls")
@@ -616,6 +618,7 @@ def cardapio2(m):  # função para criar o cardapio
                 print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
                 print('#' * 52)
                 time.sleep(2)
+                break
     elif op == 3:
         while True:
             cabecalho()
@@ -693,7 +696,6 @@ def cardapio2(m):  # função para criar o cardapio
             pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
             if pedido['quant'] > 0:
                 v_pizza = float(pedido['valor_u'] * pedido['quant'])
-                break
             else:
                 print("ERROR! Quantidade inserida invalida Favor inserir um valor maior que ZERO! ")
             os.system("cls")
@@ -714,17 +716,20 @@ def cardapio2(m):  # função para criar o cardapio
             print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
             print('#' * 52)
             time.sleep(2)
-    
+            break
+    else:
+      print("ERROR! Favor seleciona uma das opções acima")    
 
 def lista_pedido(a):  # função para lista os pedidos de uma mesa
     total = 0
     print("Status Mesa"," "*7," " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
     for c in ped:
         if c['n_mesa'] == a:
-            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 10,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 10,(f'{c["v_bebida"]}'),"=" * 18,(f'{c["valor_t"]}'))
             total += c["valor_t"]
-    print('Valor Total','='*115,(f'{total}'))
-    f_mesa = leia_str('Mudar Status da mesa ? S/N: ').upper()
+    print('Valor Total','='*133,(f'{total}'))
+    f_mesa = leia_str('Mudar Status do Peido ? S/N: ').upper()
+    s_pedido = leia_int('Informe o número da Ordem de Serviço do Pedido: ')
     if f_mesa == "S":
         status_pedido(a)
     elif f_mesa == "N":
@@ -736,7 +741,7 @@ def status_pedido(b):
     print("1 - Pedido Aberto")
     print("2 - Pronto  P/ Entrega")
     print("3 - Pedido Entregue")
-    pagamento = leia_int('Escolha a forma de pagamento Desejada: ')
+    pagamento = leia_int('Informe o novo status do Pedido: ')
     if (pagamento >= 1) and (pagamento <= 3):
         if pagamento == 1:
             pedido['s_pedido'] = str('Pedido Aberto     ')
@@ -752,7 +757,7 @@ def status_pedido(b):
                 print("4 - Pay Pal")
                 print("5 - BitCoin")
                 print("6 - Fiado")
-                pagamento = leiaint(input("Escolha a forma de pagamento Desejada: "))
+                pagamento = leia_int(input("Escolha a forma de pagamento Desejada: "))
                 if (pagamento >= 1) and (pagamento <= 6):
                     if pagamento == 1:
                         pedido['f_pagamento'] = str('Dinheiro')
@@ -826,8 +831,8 @@ while True:
                 os.system("cls")
                 status_mesa = int
                 if len(ped) == 0:
-                    os += 1
-                    cardapio(mesa)
+                    num_os += 1
+                    cardapio(mesa, num_os)
                     os.system("cls")
                 elif len(ped) > 0:  #Estrutura para validar se a mesa esta aberta ou não
                     for m in ped:
@@ -839,7 +844,7 @@ while True:
                         print('^' * 70)
                         print(" ")
                     elif status_mesa != 1:
-                        cardapio(mesa)
+                        cardapio(mesa, num_os)
                         os.system("cls")
                 mesa = 0
                 status_mesa = 0
@@ -848,7 +853,8 @@ while True:
                 status_mesa = 0
                 for n in ped:
                     if n['n_mesa'] == mesa:
-                        cardapio2(mesa, n['s_pedido'])
+                        num_os = int(n["num_os"])
+                        cardapio2(mesa, num_os)
                         os.system("cls")
                         status_mesa = 1
                         break

@@ -1,3 +1,4 @@
+    
 import time
 import os
 pedido = dict()
@@ -358,11 +359,13 @@ def cardapio(m, n):  # função para criar o cardapio
                     pedido.clear()
                     time.sleep(2)
                     os.system("cls")
+                    cabecalho()
                     print('#' * 52)
                     print('#' * 9, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
                     print('#' * 52)
                     time.sleep(2)
                     break
+        elif op == 4:
             break
         else:
             print("ERROR! Favor seleciona uma das opções acima")
@@ -498,12 +501,95 @@ def pagamento(p):
                 pedido['f_pagamento'] = str('BitCoin' )
             elif pagamento == 6:
                 pedido['f_pagamento'] = str('Fiado   ')
-            for d in range(len(ped)):
-                if d['n_mesa'] == p:
-                    d['f_pagamento'] = pedido['f_pagamento']
+            for c in ped:
+                if c['num_os'] == p:
+                    p['f_pagamento'] = pedido['s_pedido']
+            os.system("cls")
+            cabecalho()
+            print('#' * 52)
+            print('#' * 3, 'Forma de pagamento registrada com sucesso! :)', '#' * 3)
+            print('#' * 52)
+            time.sleep(2)
+            os.system("cls")
             break
         else:
             print("ERROR! Forma de pagamento selecionada incorreta, favor selecionar uma opção valida!")
 
 # programa princiapal
-while True:
+while True:   
+    menu_principal()
+    op = leia_int('Escolha a opção desejada: ')
+    os.system("cls")
+    if op == 1:
+        while True:
+            menu_secundario()
+            op2 = leia_int('Escolha a opção desejada: ')
+            os.system("cls")
+            if op2 == 1:
+                cabecalho()
+                mesa = leia_int('Insira o número da mesa: ')
+                os.system("cls")
+                status_mesa = int
+                if len(ped) == 0:
+                    num_os += 1
+                    cardapio(mesa, num_os)
+                    os.system("cls")
+                elif len(ped) > 0:  #Estrutura para validar se a mesa esta aberta ou não
+                    for m in ped:
+                        if m['n_mesa'] == mesa:
+                            status_mesa = 1
+                    if status_mesa == 1:
+                        print('^' * 70)
+                        print(f"A mesa {mesa} Já esta aberta favor inserir uma nova número!")
+                        print('^' * 70)
+                        print(" ")
+                    elif status_mesa != 1:
+                        num_os += 1
+                        cardapio(mesa, num_os)
+                        os.system("cls")
+                mesa = 0
+                status_mesa = 0
+            elif op2 == 2:
+                mesa = leia_int('Insira o número da mesa: ')
+                status_mesa = 0
+                for n in ped:
+                    if n['n_mesa'] == mesa:
+                        num_os += 1
+                        cardapio(mesa, num_os)
+                        os.system("cls")
+                        status_mesa = 1
+                        break
+                if status_mesa == 1:
+                    print("  ")
+                elif status_mesa != 1:
+                    print('^' * 70)
+                    print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa ou inserir o número da mesa correta!")
+                    print('^' * 70)  
+                mesa = 0
+                status_mesa = 0
+            elif op2 == 3:
+                break
+            else:
+                print("ERRO! Opção invalida ! ")
+    elif op == 2:
+        mesa = leia_int('Insira o número da mesa: ')
+        lista_pedido(mesa)
+    elif op == 3:
+        os.system("cls")
+        cabecalho()
+        f = leia_int('Informe o número da mesa: ')
+        pagamento(f)
+    elif op == 4:
+        while True:
+            os.system("cls")
+            menu_relatorios()
+            r = leia_int('Escolha a opção desejada: ')
+            if r >= 1 and r <=4:
+                relatorio_geral_pedidos(r)
+            elif r == 5:
+                break
+            else:
+                print('ERROR! Opção Selecionada Invalida!')
+
+    elif op == 5:
+        break

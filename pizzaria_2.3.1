@@ -2,7 +2,6 @@ import time
 import os
 pedido = dict()
 ped = []
-m_pagas = []
 ped2 = []
 num_os = int(0)
 
@@ -38,8 +37,8 @@ def cabecalho():
 def menu_principal():
     cabecalho()
     print("#" * 10, " 1 para Fazer um Pedido!", "#" * 16)
-    print("#" * 10, " 2 para lista Status/Valor de um pedido!#")
-    print("#" * 10, " 3 para Mudar Status de um pedido", "#" * 7)
+    print("#" * 10, " 2 para lista Pedidos de uma mesa !","#" * 5)
+    print("#" * 10, " 3 para Fechar Pedido em aberto!", "#" * 8)
     print("#" * 10, " 4 para Relatorios!", "#" * 21)
     print("#" * 10, " 5 para sair do sistema!", "#" * 16)
 
@@ -51,689 +50,338 @@ def menu_secundario():
     print('Digite 3 para voltar para o menu principal!')
 
 
+def menu_relatorios():
+    cabecalho()
+    print('Digite 1 para Mesas Com Pedidos em Aberto!')
+    print('Digite 2 para Mesas Com Pedidos Pronto P/ Entrega!')
+    print('Digite 3 para Mesas Com Pedidos Entregues!')
+    print('Digite 4 para Mostrar o Status de todos os Pedidos! ')
+    print('Digite 5 para voltar ')
+
+
 def cardapio(m, n):  # função para criar o cardapio
-    pedido['n_mesa'] = m
-    pedido['s_pedido'] = str('Pedido Aberto     ')
-    pedido['f_pagamento'] = str('Pendente')
-    pedido['num_os'] = int(n)
-    os.system("cls")
-    cabecalho()
-    print("1 - Para uma Pizza e Bebida  ")
-    print("2 - Para pedir Apenas Bebida ")
-    print("3 - Para Pedir Apenas Pizza  ")
-    op = leia_int("Selecione a opção Desejada: ")
-    if op == 1:
-        while True:
-            cabecalho()
-            print("*"*52)
-            print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
-            print("*"*52)
-            print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
-            print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
-            print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
-            print("4 - TOSCANA        - MOLHO DE TOMATE, MUSSARELA, CALABRESA E OVOS")
-            print("5 - CHEDDAR ESP.   - MOLHO DE TOMATE, MUSSARELA, CHAMPINON, PALMITO E CHEDDAR")
-            print("6 - PORTUGUESA     - MOLHO DE TOMATE, PRESUNTO, MUSSARELA, OVOS, CEBOLA E AZEITONAS")
-            print("7 - ATUM           - MOLHO DE TOMATE, MUSSARELA, ATUM, CEBOLA E AZEITONAS")
-            print("8 - VEGETARIANA    - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("9 - BOLONHESA      - MOLHO DE TOMATE, BOLONHESA, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("10 -PALMITO        - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
-            print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
-            sabor = leia_int('INSIRA A OPÇÃO DESEJADA: ')
-            os.system("cls")
-            if (sabor >= 1) and (sabor <= 13):
-                if sabor == 1:
-                    pedido['pizza_t'] = str('CALABRESA   ')
-                elif sabor == 2:
-                    pedido['pizza_t'] = str('4 QUEIJOS   ')
-                elif sabor == 3:
-                    pedido['pizza_t'] = str('DO CHEFF    ')
-                elif sabor == 4:
-                    pedido['pizza_t'] = str('TOSCANA     ')
-                elif sabor == 5:
-                    pedido['pizza_t'] = str('CHEDDAR ESP.')
-                elif sabor == 6:
-                    pedido['pizza_t'] = str('PORTUGUESA  ')
-                elif sabor == 7:
-                    pedido['pizza_t'] = str('ATUM        ')
-                elif sabor == 8:
-                    pedido['pizza_t'] = str('VEGETARIANA ')
-                elif sabor == 9:
-                    pedido['pizza_t'] = str('BOLONHESA   ')
-                elif sabor == 10:
-                    pedido['pizza_t'] = str('PALMITO     ')
-                elif sabor == 11:
-                    pedido['pizza_t'] = str('PARMEGIANA  ')
-                elif sabor == 12:
-                    pedido['pizza_t'] = str('MUSSARELA   ')
-                elif sabor == 13:
-                    pedido['pizza_t'] = str('CARIOCA     ')
-                break
-            else:
-                print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-        while True:
-            os.system('cls')
-            cabecalho()
-            print("¨¨¨¨¨¨¨¨¨¨¨¨ TAMANHO DAS PIZZAS ¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
-            print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
-            print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            tamanho = leia_int('ESCOLHA A OPÇÃO DESEJADA: ')
-            if (tamanho >= 1) and (tamanho <= 4):
-                if tamanho == 1:
-                    pedido['valor_u'] = float(29.00)
-                elif tamanho == 2:
-                    pedido['valor_u'] = float(33.00)
-                elif tamanho == 3:
-                    pedido['valor_u'] = float(36.00)
-                elif tamanho == 4:
-                    pedido['valor_u'] = float(41.00)
-                break
-            else:
-                print("ERROR! Selecione uma opção entre 1 e 4 !")
-        while True:
-            os.system("cls")
-            cabecalho()
-            pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
-            if pedido['quant'] > 0:
-                v_pizza = float(pedido['valor_u'] * pedido['quant'])
-                break
-            else:
-                print("ERROR! Quantidade inserida invalida! ")
-        while True:
-            os.system("cls")
-            cabecalho()
-            bebida = leia_str('Deseja pedir uma bebida S/N? ').upper()
-            if bebida == "S":
-                os.system("cls")
-                cabecalho()
-                print("*"*52)
-                print("*"*23,'BEBIDAS',"*"*23)
-                print("*"*52)
-                print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
-                print(" 2 - Citrus lata =======================================R$ 4,00")
-                print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
-                print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
-                print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
-                drink = leia_int('Insira a opção desejada: ')
-                if (drink >= 1) and (drink <= 5):
-                    if drink == 1:
-                        pedido['bebidas'] = str('ÁGUA          ')
-                        pedido['v_bebida'] = float(3.50)
-                    elif drink == 2:
-                        pedido['bebidas'] = str('Citrus        ')
-                        pedido['v_bebida'] = float(4.00)
-                    elif drink == 3:
-                        pedido['bebidas'] = str('Refri. Lata   ')
-                        pedido['v_bebida'] = float(4.00)
-                    elif drink == 4:
-                        pedido['bebidas'] = str('Refri. 2L     ')
-                        pedido['v_bebida'] = float(8.00)
-                    elif drink == 5:
-                        pedido['bebidas'] = str('Cerv.long neck')
-                        pedido['v_bebida'] = float(6.00)
-                    break
-                else:
-                    print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-            elif bebida == "N":
-                pedido['bebidas'] = str('--------------')
-                pedido['v_bebida'] = int(0)
-                print(pedido['bebidas'], pedido['v_bebida'])
-                break
-            else:
-                print("ERROR! Insira apenas S/N.")
-        while True:
-            if bebida == "S":
-                os.system("cls")
-                cabecalho()
-                pedido['quant_b'] = leia_int('Insira a quantidade de bebidas: ')
-                if pedido['quant_b'] > 0:
-                    v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
-                    pedido['valor_t'] = float(v_bebida + v_pizza)
-                    ped.append(pedido.copy())
+    while True:
+        pedido['n_mesa'] = m
+        pedido['s_pedido'] = str('Pedido Aberto     ')
+        pedido['f_pagamento'] = str('Pendente')
+        pedido['num_os'] = int(n)
+        os.system("cls")
+        cabecalho()
+        print("1 - Para Pizza e Bebida  ")
+        print("2 - Para pedir Apenas Bebida ")
+        print("3 - Para Pedir Apenas Pizza  ")
+        print("4 - Para Voltar  ")
+        op = leia_int("Selecione a opção Desejada: ")
+        if op >= 1 and op <= 3:
+            if op == 1:
+                while True:
+                    cabecalho()
+                    print("*"*52)
+                    print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
+                    print("*"*52)
+                    print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
+                    print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
+                    print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
+                    print("4 - TOSCANA        - MOLHO DE TOMATE, MUSSARELA, CALABRESA E OVOS")
+                    print("5 - CHEDDAR ESP.   - MOLHO DE TOMATE, MUSSARELA, CHAMPINON, PALMITO E CHEDDAR")
+                    print("6 - PORTUGUESA     - MOLHO DE TOMATE, PRESUNTO, MUSSARELA, OVOS, CEBOLA E AZEITONAS")
+                    print("7 - ATUM           - MOLHO DE TOMATE, MUSSARELA, ATUM, CEBOLA E AZEITONAS")
+                    print("8 - VEGETARIANA    - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
+                    print("9 - BOLONHESA      - MOLHO DE TOMATE, BOLONHESA, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
+                    print("10 -PALMITO        - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
+                    print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
+                    print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
+                    print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
+                    sabor = leia_int('INSIRA A OPÇÃO DESEJADA: ')
+                    os.system("cls")
+                    if (sabor >= 1) and (sabor <= 13):
+                        if sabor == 1:
+                            pedido['pizza_t'] = str('CALABRESA   ')
+                        elif sabor == 2:
+                            pedido['pizza_t'] = str('4 QUEIJOS   ')
+                        elif sabor == 3:
+                            pedido['pizza_t'] = str('DO CHEFF    ')
+                        elif sabor == 4:
+                            pedido['pizza_t'] = str('TOSCANA     ')
+                        elif sabor == 5:
+                            pedido['pizza_t'] = str('CHEDDAR ESP.')
+                        elif sabor == 6:
+                            pedido['pizza_t'] = str('PORTUGUESA  ')
+                        elif sabor == 7:
+                            pedido['pizza_t'] = str('ATUM        ')
+                        elif sabor == 8:
+                            pedido['pizza_t'] = str('VEGETARIANA ')
+                        elif sabor == 9:
+                            pedido['pizza_t'] = str('BOLONHESA   ')
+                        elif sabor == 10:
+                            pedido['pizza_t'] = str('PALMITO     ')
+                        elif sabor == 11:
+                            pedido['pizza_t'] = str('PARMEGIANA  ')
+                        elif sabor == 12:
+                            pedido['pizza_t'] = str('MUSSARELA   ')
+                        elif sabor == 13:
+                            pedido['pizza_t'] = str('CARIOCA     ')
+                        break
+                    else:
+                        print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
+                while True:
+                    os.system('cls')
+                    cabecalho()
+                    print("¨¨¨¨¨¨¨¨¨¨¨¨ TAMANHO DAS PIZZAS ¨¨¨¨¨¨¨¨¨¨¨¨¨")
+                    print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
+                    print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
+                    print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
+                    tamanho = leia_int('ESCOLHA A OPÇÃO DESEJADA: ')
+                    if (tamanho >= 1) and (tamanho <= 4):
+                        if tamanho == 1:
+                            pedido['valor_u'] = float(29.00)
+                        elif tamanho == 2:
+                            pedido['valor_u'] = float(33.00)
+                        elif tamanho == 3:
+                            pedido['valor_u'] = float(36.00)
+                        elif tamanho == 4:
+                            pedido['valor_u'] = float(41.00)
+                        break
+                    else:
+                        print("ERROR! Selecione uma opção entre 1 e 4 !")
+                while True:
                     os.system("cls")
                     cabecalho()
+                    pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
+                    if pedido['quant'] > 0:
+                        v_pizza = float(pedido['valor_u'] * pedido['quant'])
+                        break
+                    else:
+                        print("ERROR! Quantidade inserida invalida! ")
+                while True:
+                    os.system("cls")
+                    cabecalho()
+                    os.system("cls")
+                    cabecalho()
+                    print("*"*52)
+                    print("*"*20,'BEBIDAS',"*"*23)
+                    print("*"*52)
+                    print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
+                    print(" 2 - Citrus lata =======================================R$ 4,00")
+                    print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
+                    print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
+                    print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
+                    drink = leia_int('Insira a opção desejada: ')
+                    if (drink >= 1) and (drink <= 5):
+                        if drink == 1:
+                            pedido['bebidas'] = str('ÁGUA          ')
+                            pedido['v_bebida'] = float(3.50)
+                        elif drink == 2:
+                            pedido['bebidas'] = str('Citrus        ')
+                            pedido['v_bebida'] = float(4.00)
+                        elif drink == 3:
+                            pedido['bebidas'] = str('Refri. Lata   ')
+                            pedido['v_bebida'] = float(4.00)
+                        elif drink == 4:
+                            pedido['bebidas'] = str('Refri. 2L     ')
+                            pedido['v_bebida'] = float(8.00)
+                        elif drink == 5:
+                            pedido['bebidas'] = str('Cerv.long neck')
+                            pedido['v_bebida'] = float(6.00)
+                        break
+                    else:
+                        print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
+                while True:
+                    os.system("cls")
+                    cabecalho()
+                    pedido['quant_b'] = leia_int('Insira a quantidade de bebidas: ')
+                    if pedido['quant_b'] > 0:
+                        v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
+                        pedido['valor_t'] = float(v_bebida + v_pizza)
+                        ped.append(pedido.copy())
+                        os.system("cls")
+                        cabecalho()
+                        print('#' * 52)
+                        print('#' * 14, 'Registrando pedido...', '#' * 14)
+                        print('#' * 52)
+                        pedido.clear()
+                        time.sleep(2)
+                        os.system("cls")
+                        cabecalho()
+                        print('#' * 52)
+                        print('#' * 9, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
+                        print('#' * 52)
+                        time.sleep(2)
+                        break
+                    else:
+                        print("ERROR! Quantidade inserida é menor que Zero! ")
+            elif op == 2:
+                while True:
+                    pedido['pizza_t'] = str('------------')
+                    pedido['valor_u'] = float(0)
+                    pedido['quant'] = int(0)
+                    os.system("cls")
+                    cabecalho()
+                    print("*"*52)
+                    print("*"*23,'BEBIDAS',"*"*23)
+                    print("*"*52)
+                    print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
+                    print(" 2 - Citrus lata =======================================R$ 4,00")
+                    print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
+                    print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
+                    print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
+                    drink = leia_int('Insira a opção desejada: ')
+                    if (drink >= 1) and (drink <= 5):
+                        if drink == 1:
+                            pedido['bebidas'] = str('ÁGUA          ')
+                            pedido['v_bebida'] = float(3.50)
+                        elif drink == 2:
+                            pedido['bebidas'] = str('Citrus        ')
+                            pedido['v_bebida'] = float(4.00)
+                        elif drink == 3:
+                            pedido['bebidas'] = str('Refri. Lata   ')
+                            pedido['v_bebida'] = float(4.00)
+                        elif drink == 4:
+                            pedido['bebidas'] = str('Refri. 2L     ')
+                            pedido['v_bebida'] = float(8.00)
+                        elif drink == 5:
+                            pedido['bebidas'] = str('Cerv.long neck')
+                            pedido['v_bebida'] = float(6.00)
+                    else:
+                        print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
+                    os.system("cls")
+                    cabecalho()
+                    pedido['quant_b'] = leia_int('Insira a quantidade de bebidas: ')
+                    if pedido['quant_b'] > 0:
+                        v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
+                        pedido['valor_t'] = float(v_bebida)
+                        ped.append(pedido.copy())
+                        os.system("cls")
+                        cabecalho()
+                        print('#' * 52)
+                        print('#' * 14, 'Registrando pedido...', '#' * 14)
+                        print('#' * 52)
+                        pedido.clear()
+                        time.sleep(2)
+                        os.system("cls")
+                        cabecalho()
+                        print('#' * 52)
+                        print('#' * 9, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
+                        print('#' * 52)
+                        time.sleep(2)
+                        break
+            elif op == 3:
+                while True:
+                    cabecalho()
+                    print("*"*52)
+                    print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
+                    print("*"*52)
+                    print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
+                    print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
+                    print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
+                    print("4 - TOSCANA        - MOLHO DE TOMATE, MUSSARELA, CALABRESA E OVOS")
+                    print("5 - CHEDDAR ESP.   - MOLHO DE TOMATE, MUSSARELA, CHAMPINON, PALMITO E CHEDDAR")
+                    print("6 - PORTUGUESA     - MOLHO DE TOMATE, PRESUNTO, MUSSARELA, OVOS, CEBOLA E AZEITONAS")
+                    print("7 - ATUM           - MOLHO DE TOMATE, MUSSARELA, ATUM, CEBOLA E AZEITONAS")
+                    print("8 - VEGETARIANA    - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
+                    print("9 - BOLONHESA      - MOLHO DE TOMATE, BOLONHESA, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
+                    print("10 -PALMITO        - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
+                    print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
+                    print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
+                    print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
+                    sabor = leia_int('INSIRA A OPÇÃO DESEJADA: ')
+                    os.system("cls")
+                    if (sabor >= 1) and (sabor <= 13):
+                        if sabor == 1:
+                            pedido['pizza_t'] = str('CALABRESA   ')
+                        elif sabor == 2:
+                            pedido['pizza_t'] = str('4 QUEIJOS   ')
+                        elif sabor == 3:
+                            pedido['pizza_t'] = str('DO CHEFF    ')
+                        elif sabor == 4:
+                            pedido['pizza_t'] = str('TOSCANA     ')
+                        elif sabor == 5:
+                            pedido['pizza_t'] = str('CHEDDAR ESP.')
+                        elif sabor == 6:
+                            pedido['pizza_t'] = str('PORTUGUESA  ')
+                        elif sabor == 7:
+                            pedido['pizza_t'] = str('ATUM        ')
+                        elif sabor == 8:
+                            pedido['pizza_t'] = str('VEGETARIANA ')
+                        elif sabor == 9:
+                            pedido['pizza_t'] = str('BOLONHESA   ')
+                        elif sabor == 10:
+                            pedido['pizza_t'] = str('PALMITO     ')
+                        elif sabor == 11:
+                            pedido['pizza_t'] = str('PARMEGIANA  ')
+                        elif sabor == 12:
+                            pedido['pizza_t'] = str('MUSSARELA   ')
+                        elif sabor == 13:
+                            pedido['pizza_t'] = str('CARIOCA     ')
+                        break
+                    else:
+                        print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
+                while True:
+                    os.system('cls')
+                    cabecalho()
+                    print("¨¨¨¨¨¨¨¨¨¨¨¨ TAMANHO DAS PIZZAS ¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
+                    print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
+                    print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
+                    print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
+                    tamanho = leia_int('ESCOLHA A OPÇÃO DESEJADA: ')
+                    if (tamanho >= 1) and (tamanho <= 4):
+                        if tamanho == 1:
+                            pedido['valor_u'] = float(29.00)
+                        elif tamanho == 2:
+                            pedido['valor_u'] = float(33.00)
+                        elif tamanho == 3:
+                            pedido['valor_u'] = float(36.00)
+                        elif tamanho == 4:
+                            pedido['valor_u'] = float(41.00)
+                        break
+                    else:
+                        print("ERROR! Selecione uma opção entre 1 e 4 !")
+                while True:
+                    os.system("cls")
+                    cabecalho()
+                    pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
+                    if pedido['quant'] > 0:
+                        v_pizza = float(pedido['valor_u'] * pedido['quant'])
+                    else:
+                        print("ERROR! Quantidade inserida invalida Favor inserir um valor maior que ZERO! ")
+                    os.system("cls")
+                    cabecalho()
+                    pedido['quant_b'] = int(0)
+                    pedido['bebidas'] = str('--------------')
+                    pedido['v_bebida'] = float(0)
+                    pedido['valor_t'] = float(v_pizza)
+                    ped.append(pedido.copy())
+                    os.system("cls")
                     print('#' * 52)
-                    print('#' * 12, 'Registrando pedido...', '#' * 11)
+                    print('#' * 14, 'Registrando pedido...', '#' * 14)
                     print('#' * 52)
                     pedido.clear()
                     time.sleep(2)
                     os.system("cls")
-                    cabecalho()
                     print('#' * 52)
-                    print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
+                    print('#' * 9, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
                     print('#' * 52)
                     time.sleep(2)
                     break
-                else:
-                    print("ERROR! Quantidade inserida é menor que Zero! ")
-            elif bebida == "N":
-                os.system("cls")
-                cabecalho()
-                pedido['quant_b'] = int(0)
-                pedido['bebidas'] = str('--------------')
-                pedido['v_bebida'] = float(0)
-                pedido['valor_t'] = float(v_pizza)
-                ped.append(pedido.copy())
-                os.system("cls")
-                print('#' * 52)
-                print('#' * 12, 'Registrando pedido...', '#' * 11)
-                print('#' * 52)
-                pedido.clear()
-                time.sleep(2)
-                os.system("cls")
-                print('#' * 52)
-                print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
-                print('#' * 52)
-                time.sleep(2)
-                break
-    elif op == 2:
-        while True:
-            pedido['pizza_t'] = str('------------')
-            pedido['valor_u'] = float(0)
-            pedido['quant'] = float(0)
-            os.system("cls")
-            cabecalho()
-            print("*"*52)
-            print("*"*23,'BEBIDAS',"*"*23)
-            print("*"*52)
-            print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
-            print(" 2 - Citrus lata =======================================R$ 4,00")
-            print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
-            print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
-            print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
-            drink = leia_int('Insira a opção desejada: ')
-            if (drink >= 1) and (drink <= 5):
-                if drink == 1:
-                    pedido['bebidas'] = str('ÁGUA          ')
-                    pedido['v_bebida'] = float(3.50)
-                elif drink == 2:
-                    pedido['bebidas'] = str('Citrus        ')
-                    pedido['v_bebida'] = float(4.00)
-                elif drink == 3:
-                    pedido['bebidas'] = str('Refri. Lata   ')
-                    pedido['v_bebida'] = float(4.00)
-                elif drink == 4:
-                    pedido['bebidas'] = str('Refri. 2L     ')
-                    pedido['v_bebida'] = float(8.00)
-                elif drink == 5:
-                    pedido['bebidas'] = str('Cerv.long neck')
-                    pedido['v_bebida'] = float(6.00)
-            else:
-                print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-            os.system("cls")
-            cabecalho()
-            pedido['quant_b'] = leia_int('Insira a quantidade de bebidas: ')
-            if pedido['quant_b'] > 0:
-                v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
-                pedido['valor_t'] = float(v_bebida)
-                ped.append(pedido.copy())
-                os.system("cls")
-                cabecalho()
-                print('#' * 52)
-                print('#' * 13, 'Registrando pedido...', '#' * 13)
-                print('#' * 52)
-                pedido.clear()
-                time.sleep(2)
-                os.system("cls")
-                cabecalho()
-                print('#' * 52)
-                print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
-                print('#' * 52)
-                time.sleep(2)
-                break
-    elif op == 3:
-        while True:
-            cabecalho()
-            print("*"*52)
-            print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
-            print("*"*52)
-            print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
-            print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
-            print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
-            print("4 - TOSCANA        - MOLHO DE TOMATE, MUSSARELA, CALABRESA E OVOS")
-            print("5 - CHEDDAR ESP.   - MOLHO DE TOMATE, MUSSARELA, CHAMPINON, PALMITO E CHEDDAR")
-            print("6 - PORTUGUESA     - MOLHO DE TOMATE, PRESUNTO, MUSSARELA, OVOS, CEBOLA E AZEITONAS")
-            print("7 - ATUM           - MOLHO DE TOMATE, MUSSARELA, ATUM, CEBOLA E AZEITONAS")
-            print("8 - VEGETARIANA    - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("9 - BOLONHESA      - MOLHO DE TOMATE, BOLONHESA, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("10 -PALMITO        - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
-            print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
-            sabor = leia_int('INSIRA A OPÇÃO DESEJADA: ')
-            os.system("cls")
-            if (sabor >= 1) and (sabor <= 13):
-                if sabor == 1:
-                    pedido['pizza_t'] = str('CALABRESA   ')
-                elif sabor == 2:
-                    pedido['pizza_t'] = str('4 QUEIJOS   ')
-                elif sabor == 3:
-                    pedido['pizza_t'] = str('DO CHEFF    ')
-                elif sabor == 4:
-                    pedido['pizza_t'] = str('TOSCANA     ')
-                elif sabor == 5:
-                    pedido['pizza_t'] = str('CHEDDAR ESP.')
-                elif sabor == 6:
-                    pedido['pizza_t'] = str('PORTUGUESA  ')
-                elif sabor == 7:
-                    pedido['pizza_t'] = str('ATUM        ')
-                elif sabor == 8:
-                    pedido['pizza_t'] = str('VEGETARIANA ')
-                elif sabor == 9:
-                    pedido['pizza_t'] = str('BOLONHESA   ')
-                elif sabor == 10:
-                    pedido['pizza_t'] = str('PALMITO     ')
-                elif sabor == 11:
-                    pedido['pizza_t'] = str('PARMEGIANA  ')
-                elif sabor == 12:
-                    pedido['pizza_t'] = str('MUSSARELA   ')
-                elif sabor == 13:
-                    pedido['pizza_t'] = str('CARIOCA     ')
-                break
-            else:
-                print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-        while True:
-            os.system('cls')
-            cabecalho()
-            print("¨¨¨¨¨¨¨¨¨¨¨¨ TAMANHO DAS PIZZAS ¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
-            print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
-            print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            tamanho = leia_int('ESCOLHA A OPÇÃO DESEJADA: ')
-            if (tamanho >= 1) and (tamanho <= 4):
-                if tamanho == 1:
-                    pedido['valor_u'] = float(29.00)
-                elif tamanho == 2:
-                    pedido['valor_u'] = float(33.00)
-                elif tamanho == 3:
-                    pedido['valor_u'] = float(36.00)
-                elif tamanho == 4:
-                    pedido['valor_u'] = float(41.00)
-                break
-            else:
-                print("ERROR! Selecione uma opção entre 1 e 4 !")
-        while True:
-            os.system("cls")
-            cabecalho()
-            pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
-            if pedido['quant'] > 0:
-                v_pizza = float(pedido['valor_u'] * pedido['quant'])
-            else:
-                print("ERROR! Quantidade inserida invalida Favor inserir um valor maior que ZERO! ")
-            os.system("cls")
-            cabecalho()
-            pedido['quant_b'] = int(0)
-            pedido['bebidas'] = str('--------------')
-            pedido['v_bebida'] = float(0)
-            pedido['valor_t'] = float(v_pizza)
-            ped.append(pedido.copy())
-            os.system("cls")
-            print('#' * 52)
-            print('#' * 12, 'Registrando pedido...', '#' * 11)
-            print('#' * 52)
-            pedido.clear()
-            time.sleep(2)
-            os.system("cls")
-            print('#' * 52)
-            print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
-            print('#' * 52)
-            time.sleep(2)
             break
-    else:
-      print("ERROR! Favor seleciona uma das opções acima")
+        else:
+            print("ERROR! Favor seleciona uma das opções acima")
 
-
-def cardapio2(m, n):  # função para criar o cardapio
-    pedido['n_mesa'] = m
-    pedido['s_pedido'] = str('Pedido Aberto     ')
-    pedido['f_pagamento'] = str('Pendente')
-    pedido['num_os'] = int(n)
-    os.system("cls")
-    cabecalho()
-    print("1 - Para uma Pizza e Bebida  ")
-    print("2 - Para pedir Apenas Bebida ")
-    print("3 - Para Pedir Apenas Pizza  ")
-    op = leia_int("Selecione a opção Desejada: ")
-    if op == 1:
-        while True:
-            cabecalho()
-            print("*"*52)
-            print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
-            print("*"*52)
-            print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
-            print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
-            print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
-            print("4 - TOSCANA        - MOLHO DE TOMATE, MUSSARELA, CALABRESA E OVOS")
-            print("5 - CHEDDAR ESP.   - MOLHO DE TOMATE, MUSSARELA, CHAMPINON, PALMITO E CHEDDAR")
-            print("6 - PORTUGUESA     - MOLHO DE TOMATE, PRESUNTO, MUSSARELA, OVOS, CEBOLA E AZEITONAS")
-            print("7 - ATUM           - MOLHO DE TOMATE, MUSSARELA, ATUM, CEBOLA E AZEITONAS")
-            print("8 - VEGETARIANA    - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("9 - BOLONHESA      - MOLHO DE TOMATE, BOLONHESA, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("10 -PALMITO        - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
-            print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
-            sabor = leia_int('INSIRA A OPÇÃO DESEJADA: ')
-            os.system("cls")
-            if (sabor >= 1) and (sabor <= 13):
-                if sabor == 1:
-                    pedido['pizza_t'] = str('CALABRESA   ')
-                elif sabor == 2:
-                    pedido['pizza_t'] = str('4 QUEIJOS   ')
-                elif sabor == 3:
-                    pedido['pizza_t'] = str('DO CHEFF    ')
-                elif sabor == 4:
-                    pedido['pizza_t'] = str('TOSCANA     ')
-                elif sabor == 5:
-                    pedido['pizza_t'] = str('CHEDDAR ESP.')
-                elif sabor == 6:
-                    pedido['pizza_t'] = str('PORTUGUESA  ')
-                elif sabor == 7:
-                    pedido['pizza_t'] = str('ATUM        ')
-                elif sabor == 8:
-                    pedido['pizza_t'] = str('VEGETARIANA ')
-                elif sabor == 9:
-                    pedido['pizza_t'] = str('BOLONHESA   ')
-                elif sabor == 10:
-                    pedido['pizza_t'] = str('PALMITO     ')
-                elif sabor == 11:
-                    pedido['pizza_t'] = str('PARMEGIANA  ')
-                elif sabor == 12:
-                    pedido['pizza_t'] = str('MUSSARELA   ')
-                elif sabor == 13:
-                    pedido['pizza_t'] = str('CARIOCA     ')
-                break
-            else:
-                print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-        while True:
-            os.system('cls')
-            cabecalho()
-            print("¨¨¨¨¨¨¨¨¨¨¨¨ TAMANHO DAS PIZZAS ¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
-            print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
-            print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            tamanho = leia_int('ESCOLHA A OPÇÃO DESEJADA: ')
-            if (tamanho >= 1) and (tamanho <= 4):
-                if tamanho == 1:
-                    pedido['valor_u'] = float(29.00)
-                elif tamanho == 2:
-                    pedido['valor_u'] = float(33.00)
-                elif tamanho == 3:
-                    pedido['valor_u'] = float(36.00)
-                elif tamanho == 4:
-                    pedido['valor_u'] = float(41.00)
-                break
-            else:
-                print("ERROR! Selecione uma opção entre 1 e 4 !")
-        while True:
-            os.system("cls")
-            cabecalho()
-            pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
-            if pedido['quant'] > 0:
-                v_pizza = float(pedido['valor_u'] * pedido['quant'])
-                break
-            else:
-                print("ERROR! Quantidade inserida invalida! ")
-        while True:
-            os.system("cls")
-            cabecalho()
-            bebida = leia_str('Deseja pedir uma bebida S/N? ').upper()
-            if bebida == "S":
-                os.system("cls")
-                cabecalho()
-                print("*"*52)
-                print("*"*23,'BEBIDAS',"*"*23)
-                print("*"*52)
-                print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
-                print(" 2 - Citrus lata =======================================R$ 4,00")
-                print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
-                print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
-                print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
-                drink = leia_int('Insira a opção desejada: ')
-                if (drink >= 1) and (drink <= 5):
-                    if drink == 1:
-                        pedido['bebidas'] = str('ÁGUA          ')
-                        pedido['v_bebida'] = float(3.50)
-                    elif drink == 2:
-                        pedido['bebidas'] = str('Citrus        ')
-                        pedido['v_bebida'] = float(4.00)
-                    elif drink == 3:
-                        pedido['bebidas'] = str('Refri. Lata   ')
-                        pedido['v_bebida'] = float(4.00)
-                    elif drink == 4:
-                        pedido['bebidas'] = str('Refri. 2L     ')
-                        pedido['v_bebida'] = float(8.00)
-                    elif drink == 5:
-                        pedido['bebidas'] = str('Cerv.long neck')
-                        pedido['v_bebida'] = float(6.00)
-                    break
-                else:
-                    print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-            elif bebida == "N":
-                pedido['bebidas'] = str('--------------')
-                pedido['v_bebida'] = int(0)
-                print(pedido['bebidas'], pedido['v_bebida'])
-                break
-            else:
-                print("ERROR! Insira apenas S/N.")
-        while True:
-            if bebida == "S":
-                os.system("cls")
-                cabecalho()
-                pedido['quant_b'] = leia_int('Insira a quantidade de bebidas: ')
-                if pedido['quant_b'] > 0:
-                    v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
-                    pedido['valor_t'] = float(v_bebida + v_pizza)
-                    ped.append(pedido.copy())
-                    os.system("cls")
-                    cabecalho()
-                    print('#' * 52)
-                    print('#' * 12, 'Registrando pedido...', '#' * 11)
-                    print('#' * 52)
-                    pedido.clear()
-                    time.sleep(2)
-                    os.system("cls")
-                    cabecalho()
-                    print('#' * 52)
-                    print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
-                    print('#' * 52)
-                    time.sleep(2)
-                    break
-                else:
-                    print("ERROR! Quantidade inserida é menor que Zero! ")
-            elif bebida == "N":
-                os.system("cls")
-                cabecalho()
-                pedido['quant_b'] = int(0)
-                pedido['bebidas'] = str('--------------')
-                pedido['v_bebida'] = float(0)
-                pedido['valor_t'] = float(v_pizza)
-                ped.append(pedido.copy())
-                os.system("cls")
-                print('#' * 52)
-                print('#' * 12, 'Registrando pedido...', '#' * 11)
-                print('#' * 52)
-                pedido.clear()
-                time.sleep(2)
-                os.system("cls")
-                print('#' * 52)
-                print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 10)
-                print('#' * 52)
-                time.sleep(2)
-                break
-    elif op == 2:
-        while True:
-            pedido['pizza_t'] = str('------------')
-            pedido['valor_u'] = float(0)
-            pedido['quant'] = float(0)
-            os.system("cls")
-            cabecalho()
-            print("*"*52)
-            print("*"*23,'BEBIDAS',"*"*23)
-            print("*"*52)
-            print(" 1 - Água c/ gás e s/ gás ==============================R$ 3,50")
-            print(" 2 - Citrus lata =======================================R$ 4,00")
-            print(" 3 - Refrigerante Lata - Fanta, Kuat, Sprite e Coca ====R$ 4,00")
-            print(" 4 - Refrigerante 2 litros- Fanta, Kuat, Sprite e Coca =R$ 8,00")
-            print(" 5 - Cerveja long neck - Heineken, budweiser ===========R$ 6,00")
-            drink = leia_int('Insira a opção desejada: ')
-            if (drink >= 1) and (drink <= 5):
-                if drink == 1:
-                    pedido['bebidas'] = str('ÁGUA          ')
-                    pedido['v_bebida'] = float(3.50)
-                elif drink == 2:
-                    pedido['bebidas'] = str('Citrus        ')
-                    pedido['v_bebida'] = float(4.00)
-                elif drink == 3:
-                    pedido['bebidas'] = str('Refri. Lata   ')
-                    pedido['v_bebida'] = float(4.00)
-                elif drink == 4:
-                    pedido['bebidas'] = str('Refri. 2L     ')
-                    pedido['v_bebida'] = float(8.00)
-                elif drink == 5:
-                    pedido['bebidas'] = str('Cerv.long neck')
-                    pedido['v_bebida'] = float(6.00)
-            else:
-                print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-            os.system("cls")
-            cabecalho()
-            pedido['quant_b'] = leia_int('Insira a quantidade de bebidas: ')
-            if pedido['quant_b'] > 0:
-                v_bebida = float(pedido['v_bebida'] * pedido['quant_b'])
-                pedido['valor_t'] = float(v_bebida)
-                ped.append(pedido.copy())
-                os.system("cls")
-                cabecalho()
-                print('#' * 52)
-                print('#' * 13, 'Registrando pedido...', '#' * 13)
-                print('#' * 52)
-                pedido.clear()
-                time.sleep(2)
-                os.system("cls")
-                cabecalho()
-                print('#' * 52)
-                print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
-                print('#' * 52)
-                time.sleep(2)
-                break
-    elif op == 3:
-        while True:
-            cabecalho()
-            print("*"*52)
-            print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
-            print("*"*52)
-            print("1 - CALABRESA      - MOLHO DE TOMATE, MUSSARELA E CALABRESA")
-            print("2 - 4 QUEIJOS      - MOLHO DE TOMATE, MUSSARELA, MIGNON AO MOLHO 4 QUEIJOS E CATUPIRY")
-            print("3 - DO CHEFF       - MOLHO DE TOMATE, MUSSARELA, PALMITO, CHAMPIGNON E MOLHO BRANCO")
-            print("4 - TOSCANA        - MOLHO DE TOMATE, MUSSARELA, CALABRESA E OVOS")
-            print("5 - CHEDDAR ESP.   - MOLHO DE TOMATE, MUSSARELA, CHAMPINON, PALMITO E CHEDDAR")
-            print("6 - PORTUGUESA     - MOLHO DE TOMATE, PRESUNTO, MUSSARELA, OVOS, CEBOLA E AZEITONAS")
-            print("7 - ATUM           - MOLHO DE TOMATE, MUSSARELA, ATUM, CEBOLA E AZEITONAS")
-            print("8 - VEGETARIANA    - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("9 - BOLONHESA      - MOLHO DE TOMATE, BOLONHESA, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("10 -PALMITO        - MOLHO DE TOMATE, ESCAROLA REFOGADA, PALMITO, MILHO, TOMATES, AZEITONAS E MUSSARELA")
-            print("11 - PARMEGIANA    - MOLHO DE TOMATE, PRESUNTO, MOLHO PARMEGIANA, PARMESÃO E MUSSARELA")
-            print("12 - MUSSARELA     - MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)")
-            print("13 - CARIOCA       - MOLHO DE TOMATE, MUSSARELA, PALMITO, MILHO E CATUPIRY ")
-            sabor = leia_int('INSIRA A OPÇÃO DESEJADA: ')
-            os.system("cls")
-            if (sabor >= 1) and (sabor <= 13):
-                if sabor == 1:
-                    pedido['pizza_t'] = str('CALABRESA   ')
-                elif sabor == 2:
-                    pedido['pizza_t'] = str('4 QUEIJOS   ')
-                elif sabor == 3:
-                    pedido['pizza_t'] = str('DO CHEFF    ')
-                elif sabor == 4:
-                    pedido['pizza_t'] = str('TOSCANA     ')
-                elif sabor == 5:
-                    pedido['pizza_t'] = str('CHEDDAR ESP.')
-                elif sabor == 6:
-                    pedido['pizza_t'] = str('PORTUGUESA  ')
-                elif sabor == 7:
-                    pedido['pizza_t'] = str('ATUM        ')
-                elif sabor == 8:
-                    pedido['pizza_t'] = str('VEGETARIANA ')
-                elif sabor == 9:
-                    pedido['pizza_t'] = str('BOLONHESA   ')
-                elif sabor == 10:
-                    pedido['pizza_t'] = str('PALMITO     ')
-                elif sabor == 11:
-                    pedido['pizza_t'] = str('PARMEGIANA  ')
-                elif sabor == 12:
-                    pedido['pizza_t'] = str('MUSSARELA   ')
-                elif sabor == 13:
-                    pedido['pizza_t'] = str('CARIOCA     ')
-                break
-            else:
-                print("ERROR! Opção selecionada invalida, favor selecionar uma das opções do cardapio!")
-        while True:
-            os.system('cls')
-            cabecalho()
-            print("¨¨¨¨¨¨¨¨¨¨¨¨ TAMANHO DAS PIZZAS ¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            print("|1-Pequena | 2-Media  | 3-Grande   |  4-Big  |")
-            print("| R$29,00  | R$33,00  |  R$36,00   | R$41,00 |")
-            print("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
-            tamanho = leia_int('ESCOLHA A OPÇÃO DESEJADA: ')
-            if (tamanho >= 1) and (tamanho <= 4):
-                if tamanho == 1:
-                    pedido['valor_u'] = float(29.00)
-                elif tamanho == 2:
-                    pedido['valor_u'] = float(33.00)
-                elif tamanho == 3:
-                    pedido['valor_u'] = float(36.00)
-                elif tamanho == 4:
-                    pedido['valor_u'] = float(41.00)
-                break
-            else:
-                print("ERROR! Selecione uma opção entre 1 e 4 !")
-        while True:
-            os.system("cls")
-            cabecalho()
-            pedido['quant'] = leia_int('Insira a quantidade de pizzas: ')
-            if pedido['quant'] > 0:
-                v_pizza = float(pedido['valor_u'] * pedido['quant'])
-            else:
-                print("ERROR! Quantidade inserida invalida Favor inserir um valor maior que ZERO! ")
-            os.system("cls")
-            cabecalho()
-            pedido['quant_b'] = int(0)
-            pedido['bebidas'] = str('--------------')
-            pedido['v_bebida'] = float(0)
-            pedido['valor_t'] = float(v_pizza)
-            ped.append(pedido.copy())
-            os.system("cls")
-            print('#' * 52)
-            print('#' * 12, 'Registrando pedido...', '#' * 11)
-            print('#' * 52)
-            pedido.clear()
-            time.sleep(2)
-            os.system("cls")
-            print('#' * 52)
-            print('#' * 12, 'Pedido Resgistrado com Sucesso! :)', '#' * 7)
-            print('#' * 52)
-            time.sleep(2)
-            break
-    else:
-      print("ERROR! Favor seleciona uma das opções acima")    
 
 def lista_pedido(a):  # função para lista os pedidos de uma mesa
     total = 0
-    print("Status Mesa"," "*7," " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
+    print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
     for c in ped:
         if c['n_mesa'] == a:
-            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 10,(f'{c["v_bebida"]}'),"=" * 18,(f'{c["valor_t"]}'))
+            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 11,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
             total += c["valor_t"]
-    print('Valor Total','='*133,(f'{total}'))
-    f_mesa = leia_str('Mudar Status do Peido ? S/N: ').upper()
-    s_pedido = leia_int('Informe o número da Ordem de Serviço do Pedido: ')
+    print('Valor Total','='*126,(f'{total}'))
+    f_mesa = leia_str('Mudar Status de um Pedido ? S/N: ').upper()
     if f_mesa == "S":
-        status_pedido(a)
+        s_pedido = leia_int('Informe o número da Ordem de Serviço do Pedido: ')
+        status_pedido(s_pedido)
     elif f_mesa == "N":
-        print('Obrigado')
+        print(' ')
 
 
 def status_pedido(b):
@@ -741,79 +389,121 @@ def status_pedido(b):
     print("1 - Pedido Aberto")
     print("2 - Pronto  P/ Entrega")
     print("3 - Pedido Entregue")
-    pagamento = leia_int('Informe o novo status do Pedido: ')
-    if (pagamento >= 1) and (pagamento <= 3):
-        if pagamento == 1:
+    ped_status = leia_int('Informe o novo status do Pedido: ')
+    os.system("cls")
+    if (ped_status >= 1) and (ped_status <= 3):
+        if ped_status == 1:
             pedido['s_pedido'] = str('Pedido Aberto     ')
-        elif pagamento == 2:
+        elif ped_status == 2:
             pedido['s_pedido'] = str('Pronto  P/ Entrega')
-        elif pagamento == 3:
-            pedido['s_pedido'] = str('Pedido Entregue   ')
-            while True:
-                cabecalho()
-                print("1 - Dinheiro")
-                print("2 - Debito")
-                print("3 - Credito")
-                print("4 - Pay Pal")
-                print("5 - BitCoin")
-                print("6 - Fiado")
-                pagamento = leia_int(input("Escolha a forma de pagamento Desejada: "))
-                if (pagamento >= 1) and (pagamento <= 6):
-                    if pagamento == 1:
-                        pedido['f_pagamento'] = str('Dinheiro')
-                    elif pagamento == 2:
-                        pedido['f_pagamento'] = str('Debito  ')
-                    elif pagamento == 3:
-                        pedido['f_pagamento'] = str('Credito ')
-                    elif pagamento == 4:
-                        pedido['f_pagamento'] = str('Pay Pal ')
-                    elif pagamento == 5:
-                        pedido['f_pagamento'] = str('BitCoin' )
-                    elif pagamento == 6:
-                        pedido['f_pagamento'] = str('Fiado   ')
-                    for d in ped:
-                        if (d["n_mesa"] == b):
-                            d['s_pedido'] = pedido['s_pedido']
-                            d['f_pagamento'] = pedido['f_pagamento']
-                    break
-                else:
-                    print("ERROR! Forma de pagamento selecionada incorreta, favor selecionar uma opção valida!")
+        elif ped_status == 3:
+            pedido['s_pedido'] = str('Pedido Entregue   ') 
+        for c in ped:
+            if c['num_os'] == b:
+                c['s_pedido'] = pedido['s_pedido']
+                os.system("cls")
+        os.system("cls")
+        cabecalho()
+        print('#' * 52)
+        print('#' * 9, 'Status Atualizado com Sucesso! :)', '#' * 7)
+        print('#' * 52)
+        time.sleep(2)
     else:
         print("ERROR! Insira apenas uma das opções listadas acima. ")
 
 
-def relatorio_geral_pedidos():  # função para lista os pedidos de uma mesa
-    print('$'*40,' Pedidos Em Aberto ','$'*40)
-    print("Status Mesa"," "*7," " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
-    total = 0
-    for c in ped:
-        if c['s_pedido'] == "Pedido Aberto     ":
-            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 3,(f'{c["quant_b"]}'),"=" * 12,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-            total += c["valor_t"]
-    print('Valor Total','='*115,(f'{total}'))
-    print("_" * 160)
+def relatorio_geral_pedidos(l):  # função para lista os pedidos de uma mesa
+    if l == 4:
+        print('$'*65,' Pedidos Em Aberto ','$'*65)
+        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+        total = 0
+        for c in ped:
+            if c['s_pedido'] == "Pedido Aberto     ":
+                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+                total += c["valor_t"]
+        print('Valor Total','='*126,(f'{total}'))
+        print("_" * 156)
 
-    print('$'*40,' Pedidos Pronto P/ Entrega ','$'*40)
-    print("Status Mesa"," "*7," " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
-    total = 0
-    for c in m_pagas:
-        if c['s_pedido'] == "Pronto  P/ Entrega":
-            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 3,(f'{c["quant_b"]}'),"=" * 12,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-            total += c["valor_t"]
-    print('Valor Total','='*115,(f'{total}'))
-    print("_" * 160)
+        print('$'*65,' Pedidos Pronto P/ Entrega ','$'*65)
+        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+        total = 0
+        for c in ped:
+            if c['s_pedido'] == "Pronto  P/ Entrega":
+                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+                total += c["valor_t"]
+        print('Valor Total','='*126,(f'{total}'))
+        print("_" * 156)
+
+        print('$'*65,' Pedidos Entregue ','$'*65)
+        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+        total = 0
+        for c in ped:
+            if c['s_pedido'] == "Pedido Entregue   ":
+                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+                total += c["valor_t"]
+        print('Valor Total','='*126,(f'{total}'))
+        print("_" * 156)
+    elif l == 1:
+        print('$'*65,' Pedidos Em Aberto ','$'*65)
+        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+        total = 0
+        for c in ped:
+            if c['s_pedido'] == "Pedido Aberto     ":
+                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+                total += c["valor_t"]
+        print('Valor Total','='*126,(f'{total}'))
+        print("_" * 156)
+    elif l == 2:
+        print('$'*65,' Pedidos Pronto P/ Entrega ','$'*65)
+        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+        total = 0
+        for c in ped:
+            if c['s_pedido'] == "Pronto  P/ Entrega":
+                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+                total += c["valor_t"]
+        print('Valor Total','='*126,(f'{total}'))
+        print("_" * 156)
+    elif l == 3:
+        print('$'*65,' Pedidos Entregue ','$'*65)
+        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+        total = 0
+        for c in ped:
+            if c['s_pedido'] == "Pedido Entregue   ":
+                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
+                total += c["valor_t"]
+        print('Valor Total','='*126,(f'{total}'))
+        print("_" * 156)
 
 
-    print('$'*40,' Pedidos Entregue ','$'*40)
-    print("Status Mesa"," "*7," " * 3,'Mesa'," " * 7,'Pizzas'," " * 12,'Quant'," " * 8,'Valor Unitario'," " * 5,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 6,'Valor Total')
-    total = 0
-    for c in m_pagas:
-        if c['s_pedido'] == "Pedido Entregue   ":
-            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["pizza_t"]}'),"=" * 10,(f'{c["quant"]}'),"=" * 13,(f'{c["valor_u"]}'),"=" * 10,(f'{c["bebidas"]}'),"=" * 3,(f'{c["quant_b"]}'),"=" * 12,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-            total += c["valor_t"]
-    print('Valor Total','='*115,(f'{total}'))
-    print("_" * 160)
-
+def pagamento(p):
+    while True:
+        cabecalho()
+        print("1 - Dinheiro")
+        print("2 - Debito")
+        print("3 - Credito")
+        print("4 - Pay Pal")
+        print("5 - BitCoin")
+        print("6 - Fiado")
+        pagamento = leia_int("Selecione a forma de pagamento utilizada: ")
+        if (pagamento >= 1) and (pagamento <= 6):
+            if pagamento == 1:
+                pedido['f_pagamento'] = str('Dinheiro')
+            elif pagamento == 2:
+                pedido['f_pagamento'] = str('Debito  ')
+            elif pagamento == 3:
+                pedido['f_pagamento'] = str('Credito ')
+            elif pagamento == 4:
+                pedido['f_pagamento'] = str('Pay Pal ')
+            elif pagamento == 5:
+                pedido['f_pagamento'] = str('BitCoin' )
+            elif pagamento == 6:
+                pedido['f_pagamento'] = str('Fiado   ')
+            for d in range(len(ped)):
+                if d['n_mesa'] == p:
+                    d['f_pagamento'] = pedido['f_pagamento']
+            break
+        else:
+            print("ERROR! Forma de pagamento selecionada incorreta, favor selecionar uma opção valida!")
 
 # programa princiapal
 while True:
@@ -844,6 +534,7 @@ while True:
                         print('^' * 70)
                         print(" ")
                     elif status_mesa != 1:
+                        num_os += 1
                         cardapio(mesa, num_os)
                         os.system("cls")
                 mesa = 0
@@ -853,8 +544,8 @@ while True:
                 status_mesa = 0
                 for n in ped:
                     if n['n_mesa'] == mesa:
-                        num_os = int(n["num_os"])
-                        cardapio2(mesa, num_os)
+                        num_os += 1
+                        cardapio(mesa, num_os)
                         os.system("cls")
                         status_mesa = 1
                         break
@@ -863,7 +554,7 @@ while True:
                 elif status_mesa != 1:
                     print('^' * 70)
                     print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa ou inserir o número da mesa correta!")
-                    print('^' * 70)   
+                    print('^' * 70)  
                 mesa = 0
                 status_mesa = 0
             elif op2 == 3:
@@ -874,10 +565,20 @@ while True:
         mesa = leia_int('Insira o número da mesa: ')
         lista_pedido(mesa)
     elif op == 3:
-        print("Existem mesas em aberto no momento e elas são: ")
-        for m in ped:
-            print(m['n_mesa'])
+        os.system("cls")
+        cabecalho()
+        f = leia_int('Informe o número da mesa: ')
+        pagamento(f)
     elif op == 4:
-        print("teste4")
+        while True:
+            menu_relatorios()
+            r = leia_int('Escolha a opção desejada: ')
+            if r >= 1 and r <=4:
+                relatorio_geral_pedidos(r)
+            elif r == 5:
+                break
+            else:
+                print('ERROR! Opção Selecionada Invalida!')
+            
     elif op == 5:
         break

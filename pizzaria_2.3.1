@@ -1,9 +1,7 @@
-    
 import time
 import os
 pedido = dict()
 ped = []
-ped2 = []
 num_os = int(0)
 
 
@@ -57,10 +55,11 @@ def menu_relatorios():
     print('Digite 2 para Mesas Com Pedidos Pronto P/ Entrega!')
     print('Digite 3 para Mesas Com Pedidos Entregues!')
     print('Digite 4 para Mostrar o Status de todos os Pedidos! ')
-    print('Digite 5 para voltar ')
+    print('Digite 5 para Mostrar os Pedidos já pago ! ')
+    print('Digite 6 para sair! ')
 
 
-def cardapio(m, n):  # função para criar o cardapio
+def cardapio(m, n):  # função para criar o cardapio e inserir as informações do pedido dentro de um vetor
     while True:
         pedido['n_mesa'] = m
         pedido['s_pedido'] = str('Pedido Aberto     ')
@@ -73,9 +72,10 @@ def cardapio(m, n):  # função para criar o cardapio
         print("3 - Para Pedir Apenas Pizza  ")
         print("4 - Para Voltar  ")
         op = leia_int("Selecione a opção Desejada: ")
-        if op >= 1 and op <= 3:
+        if op >= 1 and op <= 4:
             if op == 1:
                 while True:
+                    os.system("cls")
                     cabecalho()
                     print("*"*52)
                     print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
@@ -198,7 +198,7 @@ def cardapio(m, n):  # função para criar o cardapio
                         os.system("cls")
                         cabecalho()
                         print('#' * 52)
-                        print('#' * 14, 'Registrando pedido...', '#' * 14)
+                        print('#' * 14, 'Registrando pedido...', '#' * 15)
                         print('#' * 52)
                         pedido.clear()
                         time.sleep(2)
@@ -255,7 +255,7 @@ def cardapio(m, n):  # função para criar o cardapio
                         os.system("cls")
                         cabecalho()
                         print('#' * 52)
-                        print('#' * 14, 'Registrando pedido...', '#' * 14)
+                        print('#' * 14, 'Registrando pedido...', '#' * 15)
                         print('#' * 52)
                         pedido.clear()
                         time.sleep(2)
@@ -268,6 +268,7 @@ def cardapio(m, n):  # função para criar o cardapio
                         break
             elif op == 3:
                 while True:
+                    os.system("cls")
                     cabecalho()
                     print("*"*52)
                     print("*"*4,'SABORES',"*"*6,"-","*"*6,"INGREDIENTES","*"*10)
@@ -353,8 +354,9 @@ def cardapio(m, n):  # função para criar o cardapio
                     pedido['valor_t'] = float(v_pizza)
                     ped.append(pedido.copy())
                     os.system("cls")
+                    cabecalho()
                     print('#' * 52)
-                    print('#' * 14, 'Registrando pedido...', '#' * 14)
+                    print('#' * 14, 'Registrando pedido...', '#' * 15)
                     print('#' * 52)
                     pedido.clear()
                     time.sleep(2)
@@ -365,18 +367,20 @@ def cardapio(m, n):  # função para criar o cardapio
                     print('#' * 52)
                     time.sleep(2)
                     break
-        elif op == 4:
+            elif op == 4:
+                os.system("cls")
+                break
             break
         else:
             print("ERROR! Favor seleciona uma das opções acima")
 
 
-def lista_pedido(a):  # função para lista os pedidos de uma mesa
+def lista_pedido(a):  # função para lista os pedidos de uma mesa informada pelo usuário
     total = 0
-    print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
+    print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
     for c in ped:
         if c['n_mesa'] == a:
-            print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 11,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+            print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
             total += c["valor_t"]
     print('Valor Total','='*126,(f'{total}'))
     f_mesa = leia_str('Mudar Status de um Pedido ? S/N: ').upper()
@@ -387,7 +391,8 @@ def lista_pedido(a):  # função para lista os pedidos de uma mesa
         print(' ')
 
 
-def status_pedido(b):
+def status_pedido(b):  #função pra modificar o status de um pedido
+    os.system("cls")
     cabecalho()
     print("1 - Pedido Aberto")
     print("2 - Pronto  P/ Entrega")
@@ -411,75 +416,130 @@ def status_pedido(b):
         print('#' * 9, 'Status Atualizado com Sucesso! :)', '#' * 7)
         print('#' * 52)
         time.sleep(2)
+        os.system("cls")
     else:
         print("ERROR! Insira apenas uma das opções listadas acima. ")
 
 
 def relatorio_geral_pedidos(l):  # função para lista os pedidos de uma mesa
-    if l == 4:
-        print('$'*65,' Pedidos Em Aberto ','$'*65)
-        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
-        total = 0
-        for c in ped:
-            if c['s_pedido'] == "Pedido Aberto     ":
-                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-                total += c["valor_t"]
-        print('Valor Total','='*126,(f'{total}'))
-        print("_" * 156)
-
-        print('$'*65,' Pedidos Pronto P/ Entrega ','$'*65)
-        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
-        total = 0
-        for c in ped:
-            if c['s_pedido'] == "Pronto  P/ Entrega":
-                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-                total += c["valor_t"]
-        print('Valor Total','='*126,(f'{total}'))
-        print("_" * 156)
-
-        print('$'*65,' Pedidos Entregue ','$'*65)
-        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
-        total = 0
-        for c in ped:
-            if c['s_pedido'] == "Pedido Entregue   ":
-                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-                total += c["valor_t"]
-        print('Valor Total','='*126,(f'{total}'))
-        print("_" * 156)
-    elif l == 1:
-        print('$'*65,' Pedidos Em Aberto ','$'*65)
-        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
-        total = 0
-        for c in ped:
-            if c['s_pedido'] == "Pedido Aberto     ":
-                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-                total += c["valor_t"]
-        print('Valor Total','='*126,(f'{total}'))
-        print("_" * 156)
-    elif l == 2:
-        print('$'*65,' Pedidos Pronto P/ Entrega ','$'*65)
-        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
-        total = 0
-        for c in ped:
-            if c['s_pedido'] == "Pronto  P/ Entrega":
-                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-                total += c["valor_t"]
-        print('Valor Total','='*126,(f'{total}'))
-        print("_" * 156)
-    elif l == 3:
-        print('$'*65,' Pedidos Entregue ','$'*65)
-        print(" "*3,"Status Mesa"," "*3," " * 3,'Mesa'," " * 3,'Nº OS'," " * 3,'Pizzas'," " * 9,'Quant'," " * 5,'Valor Unitario'," " * 3,'Bebidas'," " * 8,'Quant'," " * 7,'Valor Unitario'," " * 3,'Valor Total')
-        total = 0
-        for c in ped:
-            if c['s_pedido'] == "Pedido Entregue   ":
-                print((f'{c["s_pedido"]}'),"="* 4, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 5,(f'{c["pizza_t"]}'),"=" * 7,(f'{c["quant"]}'),"=" * 10,(f'{c["valor_u"]}'),"=" * 7,(f'{c["bebidas"]}'),"=" * 5,(f'{c["quant_b"]}'),"=" * 7,(f'{c["v_bebida"]}'),"=" * 15,(f'{c["valor_t"]}'))
-                total += c["valor_t"]
-        print('Valor Total','='*126,(f'{total}'))
-        print("_" * 156)
-
-
-def pagamento(p):
     while True:
+        os.system("cls")
+        if l == 4:
+            print('$'*65,' Pedidos Em Aberto ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Pedido Aberto     ":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            print('$'*65,' Pedidos Pronto P/ Entrega ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Pronto  P/ Entrega":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            print('$'*65,' Pedidos Entregue ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Pedido Entregue   ":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print('$'*65,' Pedidos Já Pagos ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Mesa Fechada      ":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            atualizar = leia_str("Deseja atualizar as informações S/N ? ").upper()
+            if atualizar == "S":
+                relatorio_geral_pedidos(4)
+            elif atualizar == "N":
+                os.system("cls")
+                break
+        elif l == 1:
+            print('$'*65,' Pedidos Em Aberto ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Pedido Aberto     ":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            atualizar = leia_str("Deseja atualizar as informações S/N ? ").upper()
+            if atualizar == "S":
+                relatorio_geral_pedidos(1)
+            elif atualizar == "N":
+                os.system("cls")
+                break
+        elif l == 2:
+            print('$'*65,' Pedidos Pronto P/ Entrega ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Pronto  P/ Entrega":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            atualizar = leia_str("Deseja atualizar as informações S/N ? ").upper()
+            if atualizar == "S":
+                relatorio_geral_pedidos(2)
+            elif atualizar == "N":
+                os.system("cls")
+                break
+        elif l == 3:
+            print('$'*65,' Pedidos Entregue ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Pedido Entregue   ":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            atualizar = leia_str("Deseja atualizar as informações S/N ? ").upper()
+            if atualizar == "S":
+                relatorio_geral_pedidos(3)
+            elif atualizar == "N":
+                os.system("cls")
+                break
+        elif l == 5:
+            print('$'*65,' Pedidos Já Pagos ','$'*65)
+            print(" "*1,"Status Pedido"," "*2,"Status Pagamento"," " * 1,'Mesa'," " * 2,'Nº OS'," " * 3,'Pizzas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Bebidas'," " * 4,'Quant'," " * 3,'Valor Unitario'," " * 2,'Valor Total')
+            total = 0
+            for c in ped:
+                if c['s_pedido'] == "Mesa Fechada      ":
+                    print((f'{c["s_pedido"]}'),"="* 1,(f'{c["f_pagamento"]}'),"="* 7, (f'{c["n_mesa"]}'),"=" * 6,(f'{c["num_os"]}'),"=" * 4,(f'{c["pizza_t"]}'),"=" * 1,(f'{c["quant"]}'),"=" * 8,(f'{c["valor_u"]}'),"=" * 8,(f'{c["bebidas"]}'),"=" * 1,(f'{c["quant_b"]}'),"=" * 9,(f'{c["v_bebida"]}'),"=" * 11,(f'{c["valor_t"]}'))
+                    total += c["valor_t"]
+            print('Valor Total','='*126,(f'{total}'))
+            print("_" * 156)
+            atualizar = leia_str("Deseja atualizar as informações S/N ? ").upper()
+            if atualizar == "S":
+                relatorio_geral_pedidos(3)
+            elif atualizar == "N":
+                os.system("cls")
+                break
+        elif l == 6:
+            print(" ")
+            break
+        else:
+            print("ERROR! A opção selecionada não existe!")
+        
+
+def pagamento(p):  #função para mudar o status do pagamento de uma mesa indepentende da quantidade de pedidos realizados
+    while True:
+        os.system("cls")
         cabecalho()
         print("1 - Dinheiro")
         print("2 - Debito")
@@ -501,13 +561,14 @@ def pagamento(p):
                 pedido['f_pagamento'] = str('BitCoin' )
             elif pagamento == 6:
                 pedido['f_pagamento'] = str('Fiado   ')
-            for c in ped:
-                if c['num_os'] == p:
-                    p['f_pagamento'] = pedido['s_pedido']
+            for d in ped:
+                if d['n_mesa'] == p:
+                    d['f_pagamento'] = pedido['f_pagamento']
+                    d['s_pedido'] = str('Mesa Fechada      ')
             os.system("cls")
             cabecalho()
             print('#' * 52)
-            print('#' * 3, 'Forma de pagamento registrada com sucesso! :)', '#' * 3)
+            print('#' * 9, 'Pagamento Resgistrado com Sucesso! :)', '#' * 7)
             print('#' * 52)
             time.sleep(2)
             os.system("cls")
@@ -515,13 +576,15 @@ def pagamento(p):
         else:
             print("ERROR! Forma de pagamento selecionada incorreta, favor selecionar uma opção valida!")
 
+
 # programa princiapal
-while True:   
+while True:
     menu_principal()
     op = leia_int('Escolha a opção desejada: ')
     os.system("cls")
     if op == 1:
         while True:
+            os.system("cls")
             menu_secundario()
             op2 = leia_int('Escolha a opção desejada: ')
             os.system("cls")
@@ -530,11 +593,11 @@ while True:
                 mesa = leia_int('Insira o número da mesa: ')
                 os.system("cls")
                 status_mesa = int
-                if len(ped) == 0:
+                if len(ped) == 0:   #Estrutura para validar se o vetor não possui nenhuma informação dentro dele.
                     num_os += 1
                     cardapio(mesa, num_os)
                     os.system("cls")
-                elif len(ped) > 0:  #Estrutura para validar se a mesa esta aberta ou não
+                elif len(ped) > 0:  #Estrutura para validar se a mesa informada já existe dentro do vetor.
                     for m in ped:
                         if m['n_mesa'] == mesa:
                             status_mesa = 1
@@ -549,10 +612,10 @@ while True:
                         os.system("cls")
                 mesa = 0
                 status_mesa = 0
-            elif op2 == 2:
+            elif op2 == 2:     #Estrutura pra validar se a mesa já existe e para inserir o pedido a mesa já existente
                 mesa = leia_int('Insira o número da mesa: ')
-                status_mesa = 0
-                for n in ped:
+                status_mesa = 0    
+                for n in ped:    
                     if n['n_mesa'] == mesa:
                         num_os += 1
                         cardapio(mesa, num_os)
@@ -562,9 +625,11 @@ while True:
                 if status_mesa == 1:
                     print("  ")
                 elif status_mesa != 1:
+                    cabecalho()
                     print('^' * 70)
                     print(f"A mesa {mesa} não esta aberta favor abrir uma nova mesa ou inserir o número da mesa correta!")
-                    print('^' * 70)  
+                    print('^' * 70)
+                    time.sleep(1)  
                 mesa = 0
                 status_mesa = 0
             elif op2 == 3:
@@ -581,15 +646,14 @@ while True:
         pagamento(f)
     elif op == 4:
         while True:
-            os.system("cls")
             menu_relatorios()
             r = leia_int('Escolha a opção desejada: ')
-            if r >= 1 and r <=4:
+            if r >= 1 and r <=5:
                 relatorio_geral_pedidos(r)
-            elif r == 5:
+            elif r == 6:
+                os.system("cls")
                 break
             else:
-                print('ERROR! Opção Selecionada Invalida!')
-
+                print('ERROR! Opção Selecionada Invalida!')          
     elif op == 5:
         break
